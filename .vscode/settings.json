@@ -1,0 +1,8 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    "sonarlint.connectedMode.project": {
+        "connectionId": "lsendel",
+        "projectKey": "lsendel_zamaz-mcp-context"
+    },
+    "java.configuration.updateBuildConfiguration": "automatic"
+}
