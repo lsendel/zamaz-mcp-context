@@ -1,0 +1,19 @@
+# IDE/editor
+.idea/
+.vscode/
+*.iml
+
+# Build output
+target/
+*.class
+
+# Environment files
+.env
+.env.*
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Editor swap files
+*~
