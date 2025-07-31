@@ -2,6 +2,8 @@
 .idea/
 .vscode/
 *.iml
+.claude/
+.zencoder/
 
 # Build output
 target/
@@ -10,6 +12,49 @@ target/
 # Environment files
 .env
 .env.*
+.env.local
+.env.*.local
+
+# Security - NEVER commit these
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+credentials/
+secrets/
+*-credentials.json
+*-key.json
+service-account*.json
+google-credentials.json
+gcp-credentials.json
+firebase-*.json
+keyfile.json
+application_default_credentials.json
+
+# API Keys
+*api-key*
+*apikey*
+*API_KEY*
+.secrets
+.credentials
+
+# Google Cloud
+.gcp/
+gcloud/
+google-cloud-key*.json
+
+# AWS
+.aws/
+aws-credentials
+
+# Other sensitive files
+*.secret
+*.private
+private/
+config/secrets/
+auth.json
+tokens.json
 
 # OS cruft
 .DS_Store

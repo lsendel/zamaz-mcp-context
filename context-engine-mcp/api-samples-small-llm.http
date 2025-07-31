@@ -1,0 +1,254 @@
+### Small LLM Integration API Samples
+### For VS Code REST Client or IntelliJ HTTP Client
+
+@baseUrl = http://localhost:8080
+@contentType = application/json
+
+### ============================================
+### 1. CODE CLASSIFICATION & INDEXING
+### ============================================
+
+### Classify a Service Class
+POST {{baseUrl}}/api/code/classify
+Content-Type: {{contentType}}
+
+{
+  "code": "public class UserService implements IUserService { void createUser(User u) { db.save(u); } }",
+  "model": "gemini-flash"
+}
+
+### Expected Response:
+# {
+#   "type": "service",
+#   "purpose": "user management",
+#   "complexity": "medium",
+#   "dependencies": ["IUserService", "User", "db"],
+#   "cost": "$0.000013"
+# }
+
+### Classify a Controller
+POST {{baseUrl}}/api/code/classify
+Content-Type: {{contentType}}
+
+{
+  "code": "@RestController public class UserController { @GetMapping(\"/users\") List<User> getAll() { return service.findAll(); } }",
+  "model": "gemini-flash"
+}
+
+### Classify Repository Pattern
+POST {{baseUrl}}/api/code/classify
+Content-Type: {{contentType}}
+
+{
+  "code": "public interface IRepository<T> { T findById(Long id); void save(T entity); }",
+  "model": "gemini-flash"
+}
+
+### Batch Classification
+POST {{baseUrl}}/api/code/classify/batch
+Content-Type: {{contentType}}
+
+{
+  "files": [
+    {"path": "UserService.java", "code": "public class UserService { }"},
+    {"path": "OrderService.java", "code": "public class OrderService { }"},
+    {"path": "PaymentService.java", "code": "public class PaymentService { }"}
+  ],
+  "model": "gemini-flash"
+}
+
+### ============================================
+### 2. CODE PRUNING
+### ============================================
+
+### Prune Boilerplate Code
+POST {{baseUrl}}/api/code/prune
+Content-Type: {{contentType}}
+
+{
+  "code": "package com.example;\n\nimport java.util.*;\n\n/** User service */\n@Service\npublic class UserService {\n    \n    // Constructor\n    public UserService() { }\n    \n    // Getter\n    public String getName() { return name; }\n    \n    // Core logic\n    public User findActiveUser(Long id) {\n        return repository.findById(id)\n            .filter(User::isActive)\n            .orElse(null);\n    }\n}",
+  "task": "finding active users",
+  "model": "gemini-flash"
+}
+
+### Expected Response:
+# {
+#   "original_size": 512,
+#   "pruned_size": 128,
+#   "reduction_percent": 75,
+#   "pruned_code": "public User findActiveUser(Long id) { return repository.findById(id).filter(User::isActive).orElse(null); }",
+#   "removed": ["imports", "comments", "getters", "constructors"],
+#   "cost": "$0.000026"
+# }
+
+### Aggressive Pruning
+POST {{baseUrl}}/api/code/prune
+Content-Type: {{contentType}}
+
+{
+  "code": "/* Large code block with lots of boilerplate */",
+  "task": "payment processing",
+  "profile": "aggressive",
+  "model": "gemini-flash"
+}
+
+### ============================================
+### 3. DEPENDENCY DETECTION
+### ============================================
+
+### Analyze Dependencies
+POST {{baseUrl}}/api/code/dependencies
+Content-Type: {{contentType}}
+
+{
+  "code": "public class OrderService {\n    private final UserService userService;\n    private final PaymentService paymentService;\n    private final InventoryService inventoryService;\n    \n    public Order createOrder(OrderRequest request) {\n        User user = userService.findById(request.getUserId());\n        Payment payment = paymentService.process(request);\n        inventoryService.reserve(request.getItems());\n        return new Order(user, payment);\n    }\n}",
+  "model": "gemini-flash"
+}
+
+### Expected Response:
+# {
+#   "internal_dependencies": [
+#     {"class": "UserService", "usage": ["findById"]},
+#     {"class": "PaymentService", "usage": ["process"]},
+#     {"class": "InventoryService", "usage": ["reserve"]}
+#   ],
+#   "external_dependencies": [
+#     {"class": "Order", "type": "model"},
+#     {"class": "OrderRequest", "type": "dto"},
+#     {"class": "User", "type": "model"},
+#     {"class": "Payment", "type": "model"}
+#   ],
+#   "cost": "$0.000019"
+# }
+
+### Deep Dependency Analysis
+POST {{baseUrl}}/api/code/dependencies/deep
+Content-Type: {{contentType}}
+
+{
+  "code": "/* code */",
+  "include_transitive": true,
+  "model": "gemini-flash"
+}
+
+### ============================================
+### 4. TWO-TIER SUMMARIZATION
+### ============================================
+
+### Simple Code Summary (Tier 1 - Gemini)
+POST {{baseUrl}}/api/code/summarize
+Content-Type: {{contentType}}
+
+{
+  "code": "public class Calculator { int add(int a, int b) { return a + b; } }",
+  "model": "gemini-flash"
+}
+
+### Expected Response:
+# {
+#   "summary": "Simple calculator class that adds two integers.",
+#   "confidence": 0.95,
+#   "model_used": "gemini-flash",
+#   "tier": 1,
+#   "cost": "$0.000008"
+# }
+
+### Complex Code Summary (May use Tier 2 - Claude)
+POST {{baseUrl}}/api/code/summarize
+Content-Type: {{contentType}}
+
+{
+  "code": "public class ComplexAlgorithm {\n    public Result processData(List<DataPoint> points, Config config) {\n        Map<String, List<DataPoint>> grouped = points.stream()\n            .filter(p -> p.getTimestamp().isAfter(config.getStartTime()))\n            .collect(Collectors.groupingBy(DataPoint::getCategory));\n        \n        return grouped.entrySet().parallelStream()\n            .map(entry -> analyzeGroup(entry.getKey(), entry.getValue(), config))\n            .reduce(Result::merge)\n            .orElse(Result.empty());\n    }\n}",
+  "model": "auto"
+}
+
+### Expected Response (if complex):
+# {
+#   "summary": "Complex data processing algorithm that filters data points by timestamp, groups them by category, performs parallel analysis on each group, and merges results into a single output.",
+#   "confidence": 0.65,
+#   "model_used": "claude-3",
+#   "tier": 2,
+#   "initial_summary": "Data processing method with streaming operations.",
+#   "refinement_reason": "Low confidence on initial summary due to complex parallel operations",
+#   "cost": "$0.000008 (gemini) + $0.000150 (claude) = $0.000158"
+# }
+
+### ============================================
+### 5. BATCH OPERATIONS
+### ============================================
+
+### Batch Process Multiple Files
+POST {{baseUrl}}/api/code/batch
+Content-Type: {{contentType}}
+
+{
+  "operations": [
+    {"type": "classify", "code": "public class A {}"},
+    {"type": "prune", "code": "public class B { /* lots of code */ }", "task": "core logic"},
+    {"type": "dependencies", "code": "public class C { private D d; }"},
+    {"type": "summarize", "code": "public class D { }"}
+  ],
+  "model": "gemini-flash"
+}
+
+### ============================================
+### 6. COST OPTIMIZATION ENDPOINTS
+### ============================================
+
+### Get Cost Estimate
+POST {{baseUrl}}/api/cost/estimate
+Content-Type: {{contentType}}
+
+{
+  "operations": [
+    {"type": "classify", "count": 10000},
+    {"type": "prune", "count": 5000},
+    {"type": "dependencies", "count": 8000},
+    {"type": "summarize", "count": 3000}
+  ],
+  "average_code_size": 500
+}
+
+### Compare Model Costs
+GET {{baseUrl}}/api/cost/comparison?operations=1000&code_size=500
+
+### ============================================
+### 7. MODEL ROUTING
+### ============================================
+
+### Auto-route to Best Model
+POST {{baseUrl}}/api/code/process
+Content-Type: {{contentType}}
+
+{
+  "code": "/* your code */",
+  "operation": "classify",
+  "constraints": {
+    "max_cost": 0.001,
+    "max_latency_ms": 200,
+    "min_accuracy": 0.8
+  }
+}
+
+### ============================================
+### 8. WEBSOCKET STREAMING
+### ============================================
+
+### Stream Processing (WebSocket)
+# ws://localhost:8080/ws/code/stream
+# Send: {"type": "classify", "code": "..."}
+# Receive: {"status": "processing", "progress": 0.5}
+# Receive: {"status": "complete", "result": {...}}
+
+### ============================================
+### 9. HEALTH & METRICS
+### ============================================
+
+### Service Health
+GET {{baseUrl}}/health
+
+### Metrics
+GET {{baseUrl}}/metrics
+
+### Model Status
+GET {{baseUrl}}/api/models/status

@@ -4,6 +4,7 @@
 !tsconfig.json
 !.eslintrc.json
 !composer.json
+!test-credentials.json
 google-credentials.json
 service-account*.json
 *-key.json

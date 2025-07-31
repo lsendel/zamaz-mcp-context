@@ -1,0 +1,330 @@
+### Google ADK Workflow API Samples - REAL PRODUCTION
+### All calls use actual Google Vertex AI - NO MOCKS
+
+@baseUrl = http://localhost:8080/api/v1
+@contentType = application/json
+
+### ============================================
+### WORKFLOW OPERATIONS
+### ============================================
+
+### Create a Production Workflow
+POST {{baseUrl}}/workflow/create
+Content-Type: {{contentType}}
+
+{
+  "definition": {
+    "name": "code-review-workflow",
+    "nodes": [
+      {
+        "id": "analyze",
+        "type": "CODE_ANALYZER",
+        "model": "gemini-1.5-pro-001",
+        "config": {
+          "prompt": "Analyze this code for security issues and performance problems"
+        }
+      },
+      {
+        "id": "document",
+        "type": "DOCUMENT_WRITER",
+        "model": "gemini-1.5-pro-001",
+        "config": {
+          "prompt": "Write comprehensive documentation for the analyzed code"
+        }
+      },
+      {
+        "id": "optimize",
+        "type": "OPTIMIZER",
+        "model": "gemini-1.5-flash-001",
+        "config": {
+          "prompt": "Suggest optimizations based on the analysis"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "from_node": "analyze",
+        "to_node": "document",
+        "condition": "true"
+      },
+      {
+        "from_node": "analyze",
+        "to_node": "optimize",
+        "condition": "result.has_issues"
+      }
+    ]
+  }
+}
+
+### Execute the Workflow
+POST {{baseUrl}}/workflow/execute
+Content-Type: {{contentType}}
+
+{
+  "workflow_id": "{{workflow_id}}",
+  "initial_state": {
+    "code": "public class UserService {\n    private static final Logger logger = LoggerFactory.getLogger(UserService.class);\n    \n    public User getUser(Long id) {\n        logger.debug(\"Getting user: \" + id);\n        // TODO: Add caching\n        return repository.findById(id).orElse(null);\n    }\n}",
+    "language": "java",
+    "task": "review"
+  },
+  "start_node": "analyze"
+}
+
+### Stream Workflow Execution Updates
+GET {{baseUrl}}/workflow/stream/{{execution_id}}
+Accept: text/event-stream
+
+### ============================================
+### MULTI-AGENT ORCHESTRATION
+### ============================================
+
+### Orchestrate Complex Task Across Multiple Agents
+POST {{baseUrl}}/agents/orchestrate
+Content-Type: {{contentType}}
+
+{
+  "request_id": "prod-test-001",
+  "description": "Analyze this Java microservice code, identify performance bottlenecks, write API documentation, and create unit tests",
+  "context": {
+    "code": "public class OrderService {\n    private final UserService userService;\n    private final PaymentService paymentService;\n    \n    public Order createOrder(OrderRequest request) {\n        User user = userService.findById(request.getUserId());\n        if (user == null) {\n            throw new UserNotFoundException();\n        }\n        \n        Payment payment = paymentService.processPayment(request.getPaymentInfo());\n        \n        Order order = new Order();\n        order.setUser(user);\n        order.setPayment(payment);\n        order.setItems(request.getItems());\n        \n        return orderRepository.save(order);\n    }\n}",
+    "requirements": ["performance", "documentation", "testing"]
+  },
+  "preferred_agents": ["CODE_ANALYZER", "DOCUMENT_WRITER", "QUALITY_CHECKER"],
+  "constraints": {
+    "max_latency": "30000",
+    "priority": "high"
+  }
+}
+
+### Get Agent Information
+GET {{baseUrl}}/agents/CODE_ANALYZER/info
+
+### Clear Agent Context (Memory Management)
+POST {{baseUrl}}/agents/CODE_ANALYZER/clear-context
+Content-Type: {{contentType}}
+
+{}
+
+### ============================================
+### DYNAMIC TOOL SELECTION
+### ============================================
+
+### Select Tools Based on Query
+POST {{baseUrl}}/tools/select
+Content-Type: {{contentType}}
+
+{
+  "query": "I need to analyze Java code for security vulnerabilities and generate a report",
+  "max_tools": 5,
+  "min_similarity": 0.75,
+  "categories": ["security", "analysis", "reporting"]
+}
+
+### Index a New Tool
+POST {{baseUrl}}/tools/index
+Content-Type: {{contentType}}
+
+{
+  "tool": {
+    "name": "security_scanner",
+    "description": "Scans code for OWASP Top 10 vulnerabilities, SQL injection, XSS, and other security issues",
+    "categories": ["security", "analysis", "compliance"],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "language": { "type": "string" },
+        "severity_threshold": { "type": "string", "enum": ["low", "medium", "high", "critical"] }
+      }
+    },
+    "metadata": {
+      "version": "2.0",
+      "last_updated": "2024-01-15",
+      "compliance": ["OWASP", "CWE", "SANS"]
+    }
+  }
+}
+
+### ============================================
+### PERSISTENT MEMORY MANAGEMENT
+### ============================================
+
+### Store Context in Memory
+POST {{baseUrl}}/memory/store
+Content-Type: {{contentType}}
+
+{
+  "session_id": "user-session-12345",
+  "content": "The user is working on optimizing a Java microservice. They've identified performance issues in the OrderService class, specifically with N+1 queries in the database layer. Previous suggestions included implementing caching and batch loading.",
+  "metadata": {
+    "user_id": "user-123",
+    "project": "order-management-service",
+    "timestamp": "2024-01-15T10:30:00Z",
+    "context_type": "performance_optimization"
+  }
+}
+
+### Retrieve Relevant Context
+POST {{baseUrl}}/memory/retrieve
+Content-Type: {{contentType}}
+
+{
+  "session_id": "user-session-12345",
+  "query": "What performance optimizations were suggested for the OrderService?",
+  "max_entries": 5,
+  "filter": {
+    "context_type": "performance_optimization",
+    "project": "order-management-service"
+  }
+}
+
+### Offload Large Context
+POST {{baseUrl}}/memory/offload
+Content-Type: {{contentType}}
+
+{
+  "session_id": "user-session-12345",
+  "size_threshold": 100000
+}
+
+### ============================================
+### CONTEXT FAILURE DETECTION & MITIGATION
+### ============================================
+
+### Validate Context for Issues
+POST {{baseUrl}}/context/validate
+Content-Type: {{contentType}}
+
+{
+  "content": "The system processes data using quantum computing which is 1000x faster than traditional methods. The OrderService has 0ms latency and can handle infinite requests. SQL injection is not a security concern because we use NoSQL. The code is self-documenting and needs no comments."
+}
+
+### Mitigate Context Issues
+POST {{baseUrl}}/context/mitigate
+Content-Type: {{contentType}}
+
+{
+  "content": "The system processes data using quantum computing which is 1000x faster. The OrderService has 0ms latency. SQL injection is not a concern because we use NoSQL.",
+  "issues": ["POISONING", "CONFUSION"]
+}
+
+### ============================================
+### VECTOR SEARCH & INDEXING
+### ============================================
+
+### Index Document with Embeddings
+POST {{baseUrl}}/vectors/index
+Content-Type: {{contentType}}
+
+{
+  "content": "public class CacheManager implements ICacheManager {\n    private final RedisTemplate<String, Object> redisTemplate;\n    private final Duration defaultTTL = Duration.ofMinutes(5);\n    \n    public void put(String key, Object value) {\n        redisTemplate.opsForValue().set(key, value, defaultTTL);\n    }\n    \n    public Optional<Object> get(String key) {\n        return Optional.ofNullable(redisTemplate.opsForValue().get(key));\n    }\n}",
+  "metadata": {
+    "type": "code",
+    "language": "java",
+    "component": "caching",
+    "file": "CacheManager.java",
+    "tags": ["cache", "redis", "performance"]
+  }
+}
+
+### Search Using Vector Similarity
+POST {{baseUrl}}/vectors/search
+Content-Type: {{contentType}}
+
+{
+  "query": "find code that implements caching with Redis",
+  "limit": 5,
+  "filters": {
+    "language": "java",
+    "component": "caching"
+  }
+}
+
+### ============================================
+### PERFORMANCE ANALYSIS
+### ============================================
+
+### Analyze Workflow Performance
+GET {{baseUrl}}/performance/workflow/code-review-workflow?time_range=last_hour
+
+### Analyze Agent Performance
+GET {{baseUrl}}/performance/agent/CODE_ANALYZER?time_range=last_24_hours
+
+### Get Real-time Metrics
+GET {{baseUrl}}/performance/metrics
+
+### ============================================
+### PRODUCTION LOAD TEST
+### ============================================
+
+### Submit 100 Concurrent Requests
+POST {{baseUrl}}/loadtest/start
+Content-Type: {{contentType}}
+
+{
+  "test_type": "concurrent_workflows",
+  "concurrent_requests": 100,
+  "duration_seconds": 60,
+  "workflow_id": "code-review-workflow",
+  "payload_template": {
+    "code": "public class Test${index} { void process() { /* test */ } }",
+    "task": "analyze"
+  }
+}
+
+### ============================================
+### COMPLEX REAL-WORLD SCENARIO
+### ============================================
+
+### E-commerce Platform Optimization Request
+POST {{baseUrl}}/agents/orchestrate
+Content-Type: {{contentType}}
+
+{
+  "request_id": "ecommerce-optimization-001",
+  "description": "Analyze our e-commerce platform's order processing system. We need to: 1) Identify performance bottlenecks in the checkout flow, 2) Review security vulnerabilities in payment processing, 3) Generate comprehensive API documentation, 4) Create unit and integration tests, 5) Suggest architectural improvements for handling Black Friday traffic (10x normal load)",
+  "context": {
+    "current_performance": {
+      "avg_response_time": "2.5s",
+      "peak_rps": "1000",
+      "database_connections": "100",
+      "cache_hit_rate": "65%"
+    },
+    "tech_stack": {
+      "backend": "Java Spring Boot",
+      "database": "PostgreSQL",
+      "cache": "Redis",
+      "queue": "RabbitMQ",
+      "deployment": "Kubernetes on GKE"
+    },
+    "business_requirements": {
+      "target_response_time": "500ms",
+      "target_peak_rps": "10000",
+      "uptime_sla": "99.99%"
+    }
+  },
+  "preferred_agents": [
+    "CODE_ANALYZER",
+    "PLANNING_AGENT",
+    "DOCUMENT_WRITER",
+    "QUALITY_CHECKER"
+  ],
+  "constraints": {
+    "budget": "optimize for cost",
+    "timeline": "2 weeks",
+    "backward_compatibility": "required"
+  }
+}
+
+### ============================================
+### MONITORING & OBSERVABILITY
+### ============================================
+
+### Get System Health
+GET {{baseUrl}}/health
+
+### Get Detailed Metrics
+GET {{baseUrl}}/metrics/detailed
+
+### Export Prometheus Metrics
+GET {{baseUrl}}/metrics/prometheus

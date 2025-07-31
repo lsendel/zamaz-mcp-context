@@ -1,0 +1,161 @@
+### Context Engine MCP - API Tests
+### Use with VS Code REST Client extension or IntelliJ HTTP Client
+
+@baseUrl = http://localhost:8080
+@projectId = zamaz-authentication
+@contentType = application/json
+
+### Health Check
+GET {{baseUrl}}/actuator/health
+
+### Application Info
+GET {{baseUrl}}/actuator/info
+
+### MCP Status
+GET {{baseUrl}}/mcp/status
+
+### MCP Capabilities
+GET {{baseUrl}}/mcp/capabilities
+
+### List LLM Providers
+GET {{baseUrl}}/api/llm/providers
+
+### List Available Models
+GET {{baseUrl}}/api/llm/models
+
+### Context Optimization - Balanced
+POST {{baseUrl}}/api/context/optimize
+Content-Type: {{contentType}}
+
+{
+  "content": "public class UserService {\n    // This is a comment\n    private static final Logger logger = LoggerFactory.getLogger(UserService.class);\n    \n    public void processUser(User user) {\n        // Log entry\n        logger.debug(\"Processing user: \" + user.getId());\n        \n        // Validate user\n        if (user == null) {\n            throw new IllegalArgumentException(\"User cannot be null\");\n        }\n        \n        // Process\n        doProcess(user);\n    }\n}",
+  "taskType": "code-review",
+  "profile": "balanced"
+}
+
+### Context Optimization - Aggressive
+POST {{baseUrl}}/api/context/optimize
+Content-Type: {{contentType}}
+
+{
+  "content": "public class UserService {\n    // This is a comment\n    private static final Logger logger = LoggerFactory.getLogger(UserService.class);\n    \n    public void processUser(User user) {\n        // Log entry\n        logger.debug(\"Processing user: \" + user.getId());\n        \n        // Validate user\n        if (user == null) {\n            throw new IllegalArgumentException(\"User cannot be null\");\n        }\n        \n        // Process\n        doProcess(user);\n    }\n}",
+  "taskType": "code-review",
+  "profile": "aggressive"
+}
+
+### Simple LLM Completion
+POST {{baseUrl}}/api/llm/complete
+Content-Type: {{contentType}}
+
+{
+  "prompt": "What is 2+2?",
+  "model": "gemini-flash",
+  "temperature": 0.1,
+  "maxTokens": 10
+}
+
+### Code Analysis Completion
+POST {{baseUrl}}/api/llm/complete
+Content-Type: {{contentType}}
+
+{
+  "prompt": "Analyze this Java code for potential issues:\n\npublic void sendEmail(String to, String subject, String body) {\n    EmailService.send(to, subject, body);\n}",
+  "model": "gemini-pro",
+  "temperature": 0.3,
+  "maxTokens": 200
+}
+
+### Generate Embeddings
+POST {{baseUrl}}/api/embeddings/generate
+Content-Type: {{contentType}}
+
+{
+  "text": "public void sendEmail(String to, String subject, String body)",
+  "model": "text-embedding-004"
+}
+
+### Semantic Search
+POST {{baseUrl}}/api/search/semantic
+Content-Type: {{contentType}}
+
+{
+  "query": "function to send email notifications",
+  "limit": 5,
+  "projectId": "{{projectId}}"
+}
+
+### Batch Processing
+POST {{baseUrl}}/api/batch/process
+Content-Type: {{contentType}}
+
+{
+  "items": [
+    {"id": "1", "content": "What is Java?"},
+    {"id": "2", "content": "Explain Python"},
+    {"id": "3", "content": "Define JavaScript"}
+  ],
+  "operation": "summarize",
+  "model": "gemini-flash"
+}
+
+### List Organizations
+GET {{baseUrl}}/api/organizations
+
+### Create Organization
+POST {{baseUrl}}/api/organizations
+Content-Type: {{contentType}}
+
+{
+  "name": "test-org-api",
+  "description": "Test Organization via API"
+}
+
+### List Projects for Organization
+GET {{baseUrl}}/api/projects?orgId=test-org-api
+
+### Create Project
+POST {{baseUrl}}/api/projects
+Content-Type: {{contentType}}
+
+{
+  "organizationId": "test-org-api",
+  "name": "test-project",
+  "description": "Test Project"
+}
+
+### Model Routing Test - Simple Query
+POST {{baseUrl}}/api/llm/route
+Content-Type: {{contentType}}
+
+{
+  "query": "What is 1+1?",
+  "requiredCapabilities": [],
+  "maxLatencyMs": 1000,
+  "maxCost": 0.01
+}
+
+### Model Routing Test - Complex Query
+POST {{baseUrl}}/api/llm/route
+Content-Type: {{contentType}}
+
+{
+  "query": "Analyze this architecture for scalability issues and provide detailed recommendations",
+  "requiredCapabilities": ["CODE_ANALYSIS", "LONG_CONTEXT"],
+  "maxLatencyMs": 5000,
+  "maxCost": 0.10
+}
+
+### Get Metrics
+GET {{baseUrl}}/actuator/metrics
+
+### Get Specific Metric
+GET {{baseUrl}}/actuator/metrics/http.server.requests
+
+### Prometheus Metrics
+GET {{baseUrl}}/actuator/prometheus
+
+### Queue Status
+GET {{baseUrl}}/api/queue/status
+
+### Process Offline Queue
+POST {{baseUrl}}/api/queue/process

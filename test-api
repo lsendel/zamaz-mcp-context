@@ -1,0 +1,4 @@
+#!/bin/bash
+# Quick API test runner from root directory
+
+cd context-engine-mcp && ./test-api.sh "$@"

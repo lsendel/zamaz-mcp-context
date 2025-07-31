@@ -1,0 +1,424 @@
+syntax = "proto3";
+
+package com.zamaz.adk.proto;
+
+option java_package = "com.zamaz.adk.proto";
+option java_outer_classname = "WorkflowProto";
+option java_multiple_files = true;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+
+// Multi-tenant context for all services
+message TenantContext {
+    string organization_id = 1;  // Required: Top-level organization
+    string project_id = 2;       // Optional: Project within organization
+    string subproject_id = 3;    // Optional: Subproject within project
+    map<string, string> metadata = 4;  // Additional tenant metadata
+}
+
+// Workflow Engine Services
+service WorkflowService {
+    // Execute a workflow
+    rpc ExecuteWorkflow(ExecuteWorkflowRequest) returns (ExecuteWorkflowResponse);
+    
+    // Stream workflow execution updates
+    rpc StreamWorkflowExecution(StreamWorkflowRequest) returns (stream WorkflowUpdate);
+    
+    // Get workflow status
+    rpc GetWorkflowStatus(GetWorkflowStatusRequest) returns (WorkflowStatus);
+    
+    // Create a new workflow definition
+    rpc CreateWorkflow(CreateWorkflowRequest) returns (CreateWorkflowResponse);
+}
+
+// Multi-Agent Services
+service MultiAgentService {
+    // Orchestrate a complex request across agents
+    rpc OrchestrateRequest(OrchestrateRequest) returns (OrchestrateResponse);
+    
+    // Stream agent interactions
+    rpc StreamAgentInteractions(StreamAgentRequest) returns (stream AgentUpdate);
+    
+    // Get agent status and capabilities
+    rpc GetAgentInfo(GetAgentInfoRequest) returns (AgentInfo);
+    
+    // Clear agent context
+    rpc ClearAgentContext(ClearContextRequest) returns (ClearContextResponse);
+}
+
+// Dynamic Tool Selection Service
+service ToolSelectionService {
+    // Select tools dynamically based on query
+    rpc SelectTools(ToolSelectionRequest) returns (ToolSelectionResponse);
+    
+    // Index a new tool
+    rpc IndexTool(IndexToolRequest) returns (IndexToolResponse);
+    
+    // Search tools by capability
+    rpc SearchTools(ToolSearchRequest) returns (ToolSearchResponse);
+}
+
+// Memory Management Service
+service MemoryService {
+    // Store context in persistent memory
+    rpc StoreContext(StoreContextRequest) returns (StoreContextResponse);
+    
+    // Retrieve context from memory
+    rpc RetrieveContext(RetrieveContextRequest) returns (RetrieveContextResponse);
+    
+    // Offload large context to storage
+    rpc OffloadContext(OffloadContextRequest) returns (OffloadContextResponse);
+}
+
+// Workflow Messages
+message WorkflowDefinition {
+    string id = 1;
+    string name = 2;
+    repeated WorkflowNode nodes = 3;
+    repeated WorkflowEdge edges = 4;
+    map<string, string> metadata = 5;
+    google.protobuf.Timestamp created_at = 6;
+}
+
+message WorkflowNode {
+    string id = 1;
+    string type = 2;
+    string model = 3; // gemini-1.5-flash, gemini-1.5-pro, etc.
+    map<string, google.protobuf.Value> config = 4;
+    repeated string required_tools = 5;
+}
+
+message WorkflowEdge {
+    string from_node = 1;
+    string to_node = 2;
+    string condition = 3; // Expression to evaluate
+    double weight = 4;
+    map<string, string> metadata = 5;
+}
+
+message WorkflowState {
+    string workflow_id = 1;
+    string execution_id = 2;
+    map<string, google.protobuf.Value> data = 3;
+    repeated string execution_path = 4;
+    map<string, string> metadata = 5;
+    google.protobuf.Timestamp timestamp = 6;
+    WorkflowStatus status = 7;
+}
+
+message WorkflowStatus {
+    enum Status {
+        PENDING = 0;
+        RUNNING = 1;
+        COMPLETED = 2;
+        FAILED = 3;
+        CANCELLED = 4;
+    }
+    Status status = 1;
+    string current_node = 2;
+    string message = 3;
+    map<string, NodeStatus> node_statuses = 4;
+}
+
+message NodeStatus {
+    string node_id = 1;
+    bool completed = 2;
+    google.protobuf.Timestamp start_time = 3;
+    google.protobuf.Timestamp end_time = 4;
+    string error = 5;
+}
+
+// Agent Messages
+message Agent {
+    string id = 1;
+    AgentType type = 2;
+    string model = 3;
+    repeated string capabilities = 4;
+    ContextWindow context = 5;
+    map<string, string> metadata = 6;
+}
+
+enum AgentType {
+    CODE_ANALYZER = 0;
+    DOCUMENT_WRITER = 1;
+    DATA_PROCESSOR = 2;
+    SEARCH_AGENT = 3;
+    PLANNING_AGENT = 4;
+    QUALITY_CHECKER = 5;
+}
+
+message ContextWindow {
+    string agent_id = 1;
+    int32 max_tokens = 2;
+    int32 current_tokens = 3;
+    repeated Message messages = 4;
+    google.protobuf.Timestamp last_updated = 5;
+}
+
+message Message {
+    string role = 1; // user, assistant, system
+    string content = 2;
+    google.protobuf.Timestamp timestamp = 3;
+    map<string, string> metadata = 4;
+}
+
+message ExecutionPlan {
+    string id = 1;
+    repeated Task tasks = 2;
+    map<string, string> dependencies = 3; // task_id -> dependent_task_ids
+    string combination_strategy = 4;
+    map<string, string> metadata = 5;
+}
+
+message Task {
+    string id = 1;
+    AgentType agent_type = 2;
+    string description = 3;
+    map<string, google.protobuf.Value> parameters = 4;
+    repeated string dependencies = 5;
+    int32 priority = 6;
+}
+
+// Tool Messages
+message Tool {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    repeated string categories = 4;
+    map<string, google.protobuf.Value> input_schema = 5;
+    map<string, google.protobuf.Value> output_schema = 6;
+    repeated float embedding = 7; // Vector embedding of tool description
+    map<string, string> metadata = 8;
+}
+
+message ToolMatch {
+    Tool tool = 1;
+    double similarity_score = 2;
+    string match_reason = 3;
+}
+
+// Memory Messages
+message MemoryEntry {
+    string id = 1;
+    string session_id = 2;
+    string content = 3;
+    repeated float embedding = 4;
+    google.protobuf.Timestamp timestamp = 5;
+    int32 access_count = 6;
+    map<string, string> metadata = 7;
+}
+
+message ContextMemory {
+    string session_id = 1;
+    repeated MemoryEntry entries = 2;
+    int32 total_tokens = 3;
+    google.protobuf.Timestamp created_at = 4;
+    google.protobuf.Timestamp last_accessed = 5;
+}
+
+// Request/Response Messages
+message ExecuteWorkflowRequest {
+    TenantContext tenant = 1;
+    string workflow_id = 2;
+    map<string, google.protobuf.Value> initial_state = 3;
+    string start_node = 4;
+    map<string, string> metadata = 5;
+}
+
+message ExecuteWorkflowResponse {
+    string execution_id = 1;
+    WorkflowState final_state = 2;
+    WorkflowStatus status = 3;
+    int64 execution_time_ms = 4;
+    map<string, string> metadata = 5;
+}
+
+message OrchestrateRequest {
+    TenantContext tenant = 1;
+    string request_id = 2;
+    string description = 3;
+    map<string, google.protobuf.Value> context = 4;
+    repeated AgentType preferred_agents = 5;
+    map<string, string> constraints = 6;
+}
+
+message OrchestrateResponse {
+    string request_id = 1;
+    ExecutionPlan plan = 2;
+    map<string, AgentResponse> agent_responses = 3;
+    string final_response = 4;
+    double confidence_score = 5;
+    map<string, string> metadata = 6;
+}
+
+message AgentResponse {
+    string agent_id = 1;
+    AgentType agent_type = 2;
+    string response = 3;
+    map<string, google.protobuf.Value> extracted_data = 4;
+    double confidence = 5;
+    int32 tokens_used = 6;
+    int64 latency_ms = 7;
+}
+
+message ToolSelectionRequest {
+    TenantContext tenant = 1;
+    string query = 2;
+    int32 max_tools = 3;
+    repeated string categories = 4;
+    double min_similarity = 5;
+}
+
+message ToolSelectionResponse {
+    repeated ToolMatch matched_tools = 1;
+    int32 total_candidates = 2;
+    int64 selection_time_ms = 3;
+}
+
+// Context Failure Detection
+message ContextValidation {
+    repeated ContextIssue issues = 1;
+    double overall_quality_score = 2;
+    repeated string recommendations = 3;
+}
+
+message ContextIssue {
+    FailureMode mode = 1;
+    string description = 2;
+    double severity = 3;
+    string affected_content = 4;
+    string suggested_mitigation = 5;
+}
+
+enum FailureMode {
+    POISONING = 0;    // Hallucinations in context
+    DISTRACTION = 1;  // Focus on irrelevant content
+    CONFUSION = 2;    // Superfluous information
+    CLASH = 3;        // Conflicting information
+}
+
+// Additional Request Messages
+message CreateWorkflowRequest {
+    TenantContext tenant = 1;
+    WorkflowDefinition definition = 2;
+}
+
+message CreateWorkflowResponse {
+    string workflow_id = 1;
+    string status = 2;
+}
+
+message GetWorkflowStatusRequest {
+    TenantContext tenant = 1;
+    string workflow_id = 2;
+}
+
+message StreamWorkflowRequest {
+    TenantContext tenant = 1;
+    string execution_id = 2;
+}
+
+message StreamAgentRequest {
+    TenantContext tenant = 1;
+    string request_id = 2;
+}
+
+message GetAgentInfoRequest {
+    TenantContext tenant = 1;
+    AgentType agent_type = 2;
+}
+
+message AgentInfo {
+    Agent agent = 1;
+}
+
+message ClearContextRequest {
+    TenantContext tenant = 1;
+    string agent_id = 2;
+}
+
+message ClearContextResponse {
+    string agent_id = 1;
+    bool success = 2;
+    string message = 3;
+}
+
+message IndexToolRequest {
+    TenantContext tenant = 1;
+    Tool tool = 2;
+}
+
+message IndexToolResponse {
+    string tool_id = 1;
+    bool success = 2;
+    string message = 3;
+}
+
+message ToolSearchRequest {
+    TenantContext tenant = 1;
+    string query = 2;
+    repeated string categories = 3;
+    int32 limit = 4;
+}
+
+message ToolSearchResponse {
+    repeated Tool tools = 1;
+    int32 total_count = 2;
+}
+
+message StoreContextRequest {
+    TenantContext tenant = 1;
+    string session_id = 2;
+    string content = 3;
+    map<string, string> metadata = 4;
+}
+
+message StoreContextResponse {
+    string entry_id = 1;
+    bool success = 2;
+    string storage_type = 3;
+}
+
+message RetrieveContextRequest {
+    TenantContext tenant = 1;
+    string session_id = 2;
+    string query = 3;
+    int32 max_entries = 4;
+    map<string, string> filter = 5;
+}
+
+message RetrieveContextResponse {
+    ContextMemory memory = 1;
+    bool success = 2;
+}
+
+message OffloadContextRequest {
+    TenantContext tenant = 1;
+    string session_id = 2;
+    int64 size_threshold = 3;
+}
+
+message OffloadContextResponse {
+    int32 entries_offloaded = 1;
+    int64 bytes_freed = 2;
+    bool success = 3;
+}
+
+// Streaming Messages
+message WorkflowUpdate {
+    string execution_id = 1;
+    string current_node = 2;
+    WorkflowStatus.Status status = 3;
+    string message = 4;
+    google.protobuf.Timestamp timestamp = 5;
+}
+
+message AgentUpdate {
+    string agent_id = 1;
+    AgentType agent_type = 2;
+    string status = 3;
+    string current_action = 4;
+    int32 context_usage = 5;
+    google.protobuf.Timestamp timestamp = 6;
+}

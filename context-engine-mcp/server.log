@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/mock-api-server.py", line 145, in <module>
+    server = HTTPServer(('localhost', port), MockAPIHandler)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Volumes/IDEA/opt/anaconda3/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/Volumes/IDEA/opt/anaconda3/lib/python3.12/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/Volumes/IDEA/opt/anaconda3/lib/python3.12/socketserver.py", line 473, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 48] Address already in use

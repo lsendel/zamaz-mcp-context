@@ -1,0 +1,199 @@
+spring:
+  application:
+    name: zamaz-context-engine
+
+# Google Cloud Configuration
+google:
+  cloud:
+    project: ${GOOGLE_CLOUD_PROJECT:zamaz-dev}
+    location: ${GOOGLE_CLOUD_LOCATION:us-central1}
+    pubsub:
+      topic: ${PUBSUB_TOPIC:agent-events}
+    storage:
+      bucket: ${STORAGE_BUCKET:zamaz-context-bucket}
+
+# AI Model Configurations
+ai:
+  models:
+    gemini:
+      pro:
+        name: gemini-1.5-pro
+        temperature: 0.7
+        maxOutputTokens: 2048
+        topK: 40
+        topP: 0.95
+      flash:
+        name: gemini-1.5-flash
+        temperature: 0.5
+        maxOutputTokens: 1024
+        topK: 40
+        topP: 0.95
+      decision:
+        name: gemini-1.5-flash
+        temperature: 0.3
+        maxOutputTokens: 50
+      classification:
+        name: gemini-1.5-flash
+        temperature: 0.3
+        maxOutputTokens: 100
+      keyword-extraction:
+        name: gemini-1.5-flash
+        temperature: 0.5
+        maxOutputTokens: 200
+      creative:
+        name: gemini-1.5-pro
+        temperature: 0.8
+        maxOutputTokens: 400
+
+# Context Engine Configuration
+context:
+  engine:
+    maxConcurrentWorkflows: 100
+    defaultTimeoutMs: 300000  # 5 minutes
+    
+  quality:
+    acceptableThreshold: 0.5
+    aggregationIntervalSeconds: 60
+    trendCalculationIntervalSeconds: 300
+    monitoringCollectionIntervalSeconds: 30
+    
+  window:
+    defaultSizeTokens: 8192
+    chunkSizeTokens: 512
+    
+  memory:
+    storageThresholdBytes: 10240
+    maxSegmentSizeBytes: 1048576  # 1MB
+    cacheExpirationMinutes: 5
+    consolidationMinChunks: 5
+    decayHalfLifeDays: 30
+    estimatedBytesPerChunk: 2048
+
+# Agent Configuration
+agents:
+  orchestrator:
+    executor:
+      corePoolSize: 4
+      maximumPoolSize: 16
+      keepAliveTimeSeconds: 60
+    communication:
+      messageTimeoutSeconds: 30
+    capabilities:
+      codeAnalyzer:
+        languages: [java, python, javascript, typescript]
+        maxFileSize: 100000
+      documentWriter:
+        formats: [markdown, html, pdf]
+        maxLength: 50000
+
+# Workflow Configuration
+workflow:
+  engine:
+    executor:
+      shutdownTimeoutSeconds: 60
+    execution:
+      nodeTimeoutSeconds: 30
+    streaming:
+      timeoutMs: 300000  # 5 minutes
+      cleanupIntervalSeconds: 30
+      bufferSize: 1000
+    debugger:
+      recordingTimeoutSeconds: 60
+
+# Tool Configuration
+tools:
+  embedding:
+    defaultPopularity: 0.5
+    popularityDecayRate: 0.95
+    popularityBoost: 0.05
+  selector:
+    highSimilarityThreshold: 0.8
+    lowSimilarityThreshold: 0.3
+    maxRelatedTools: 5
+  enrichment:
+    categoryCount:
+      min: 3
+      max: 5
+    keywordCount:
+      min: 10
+      max: 15
+    cacheExpirationDays: 7
+
+# Vector Store Configuration
+vector:
+  store:
+    searchResultsDefault: 10
+    similarityThresholds:
+      high: 0.8
+      medium: 0.5
+      low: 0.3
+
+# Resource Management
+resources:
+  shutdown:
+    gracefulTimeoutSeconds: 60
+    forceTimeoutSeconds: 30
+    emergencyTimeoutSeconds: 15
+  executor:
+    workStealingPoolSize: -1  # Use available processors
+    scheduledPoolSize: 4
+  publisher:
+    shutdownTimeoutSeconds: 30
+
+# Monitoring and Health
+monitoring:
+  health:
+    checkIntervalMinutes: 5
+  metrics:
+    collectionIntervalMinutes: 1
+    retentionDays: 30
+  alerts:
+    thresholds:
+      errorRate: 0.05
+      responseTimeMs: 5000
+      memoryUsagePercent: 85
+
+# Tenant Configuration
+tenant:
+  quotas:
+    default:
+      requestsPerHour: 1000
+      contextSizeMB: 100
+      agentRequests: 500
+  isolation:
+    contextWindowSeparation: true
+    resourceIsolation: true
+  audit:
+    enabled: true
+    retentionDays: 90
+
+# Security Configuration
+security:
+  encryption:
+    enabled: true
+    algorithm: AES-256-GCM
+  audit:
+    sensitiveOperations: [workflow.create, agent.orchestrate, context.store]
+    logLevel: INFO
+
+# Development/Debug Configuration
+debug:
+  enabled: ${DEBUG_ENABLED:false}
+  verbose: ${DEBUG_VERBOSE:false}
+  workflow:
+    breakpoints: ${DEBUG_BREAKPOINTS:false}
+    trace: ${DEBUG_TRACE:false}
+
+# Logging Configuration
+logging:
+  level:
+    com.zamaz.adk: ${LOG_LEVEL:INFO}
+    org.springframework: WARN
+    com.google.cloud: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: ${LOG_FILE:logs/zamaz-context-engine.log}
+    max-size: 10MB
+    max-history: 30

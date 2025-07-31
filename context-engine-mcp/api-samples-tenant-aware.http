@@ -1,0 +1,400 @@
+### Tenant-Aware Google ADK API Samples
+### Multi-level tenant support: Organization / Project / Subproject
+
+@baseUrl = http://localhost:8080/api/v1
+@contentType = application/json
+
+### ============================================
+### ORGANIZATION LEVEL OPERATIONS
+### ============================================
+
+### Create Workflow at Organization Level
+POST {{baseUrl}}/org/zamaz-enterprise/workflow/create
+Content-Type: {{contentType}}
+
+{
+  "definition": {
+    "name": "enterprise-data-pipeline",
+    "nodes": [
+      {
+        "id": "extract",
+        "type": "DATA_PROCESSOR",
+        "model": "gemini-1.5-flash-001",
+        "config": {
+          "prompt": "Extract and validate data from source systems"
+        }
+      },
+      {
+        "id": "transform",
+        "type": "DATA_PROCESSOR", 
+        "model": "gemini-1.5-pro-001",
+        "config": {
+          "prompt": "Transform data according to business rules"
+        }
+      },
+      {
+        "id": "load",
+        "type": "DATA_PROCESSOR",
+        "model": "gemini-1.5-flash-001",
+        "config": {
+          "prompt": "Load data into target warehouse"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "from_node": "extract",
+        "to_node": "transform",
+        "condition": "result.validation_passed"
+      },
+      {
+        "from_node": "transform",
+        "to_node": "load",
+        "condition": "true"
+      }
+    ]
+  }
+}
+
+### Execute Workflow at Organization Level
+POST {{baseUrl}}/org/zamaz-enterprise/workflow/execute
+Content-Type: {{contentType}}
+
+{
+  "workflow_id": "{{workflow_id}}",
+  "initial_state": {
+    "source_system": "inventory_db",
+    "target_warehouse": "analytics_bq",
+    "batch_size": "10000"
+  },
+  "start_node": "extract"
+}
+
+### List All Workflows for Organization
+GET {{baseUrl}}/org/zamaz-enterprise/workflows
+
+### ============================================
+### PROJECT LEVEL OPERATIONS
+### ============================================
+
+### Create Workflow at Project Level
+POST {{baseUrl}}/org/zamaz-enterprise/project/fba-optimization/workflow/create
+Content-Type: {{contentType}}
+
+{
+  "definition": {
+    "name": "fba-inventory-optimizer",
+    "nodes": [
+      {
+        "id": "analyze_sales",
+        "type": "DATA_PROCESSOR",
+        "model": "gemini-1.5-pro-001",
+        "config": {
+          "prompt": "Analyze FBA sales patterns and velocity"
+        }
+      },
+      {
+        "id": "forecast_demand",
+        "type": "PLANNING_AGENT",
+        "model": "gemini-1.5-pro-001",
+        "config": {
+          "prompt": "Forecast demand for next 90 days considering seasonality"
+        }
+      },
+      {
+        "id": "optimize_inventory",
+        "type": "PLANNING_AGENT",
+        "model": "gemini-1.5-pro-001",
+        "config": {
+          "prompt": "Calculate optimal reorder points and quantities"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "from_node": "analyze_sales",
+        "to_node": "forecast_demand",
+        "condition": "true"
+      },
+      {
+        "from_node": "forecast_demand",
+        "to_node": "optimize_inventory",
+        "condition": "result.confidence > 0.8"
+      }
+    ]
+  }
+}
+
+### Multi-Agent Orchestration at Project Level
+POST {{baseUrl}}/org/zamaz-enterprise/project/fba-optimization/agents/orchestrate
+Content-Type: {{contentType}}
+
+{
+  "request_id": "fba-analysis-001",
+  "description": "Analyze our FBA inventory for Q4 2024, identify slow-moving SKUs, suggest repricing strategies, and recommend inventory adjustments for peak season",
+  "context": {
+    "marketplace": "Amazon US",
+    "categories": ["Electronics", "Home & Kitchen"],
+    "current_inventory_value": "$2.5M",
+    "storage_fees_monthly": "$45,000",
+    "target_inventory_turnover": "12x annually"
+  },
+  "preferred_agents": ["DATA_PROCESSOR", "PLANNING_AGENT", "QUALITY_CHECKER"]
+}
+
+### ============================================
+### SUBPROJECT LEVEL OPERATIONS
+### ============================================
+
+### Create Workflow at Subproject Level
+POST {{baseUrl}}/org/zamaz-enterprise/project/fba-optimization/subproject/electronics-category/workflow/create
+Content-Type: {{contentType}}
+
+{
+  "definition": {
+    "name": "electronics-pricing-optimizer",
+    "nodes": [
+      {
+        "id": "competitor_analysis",
+        "type": "SEARCH_AGENT",
+        "model": "gemini-1.5-flash-001",
+        "config": {
+          "prompt": "Search and analyze competitor pricing for electronics"
+        }
+      },
+      {
+        "id": "price_optimization",
+        "type": "PLANNING_AGENT",
+        "model": "gemini-1.5-pro-001",
+        "config": {
+          "prompt": "Calculate optimal pricing to maximize profit while maintaining buy box"
+        }
+      },
+      {
+        "id": "implementation",
+        "type": "CODE_ANALYZER",
+        "model": "gemini-1.5-flash-001",
+        "config": {
+          "prompt": "Generate API calls to update prices on Amazon"
+        }
+      }
+    ],
+    "edges": [
+      {
+        "from_node": "competitor_analysis",
+        "to_node": "price_optimization",
+        "condition": "result.competitors_found > 0"
+      },
+      {
+        "from_node": "price_optimization",
+        "to_node": "implementation",
+        "condition": "result.price_changes_recommended"
+      }
+    ]
+  }
+}
+
+### ============================================
+### TOOL SELECTION WITH TENANT ISOLATION
+### ============================================
+
+### Select Tools at Organization Level
+POST {{baseUrl}}/org/zamaz-enterprise/tools/select
+Content-Type: {{contentType}}
+
+{
+  "query": "I need tools to analyze Amazon seller performance and optimize listings",
+  "max_tools": 5,
+  "categories": ["analytics", "optimization", "amazon"],
+  "min_similarity": 0.7
+}
+
+### Index Custom Tool for Project
+POST {{baseUrl}}/org/zamaz-enterprise/project/fba-optimization/tools/index
+Content-Type: {{contentType}}
+
+{
+  "tool": {
+    "name": "fba_fee_calculator",
+    "description": "Calculates FBA fees including storage, fulfillment, and long-term storage fees for products",
+    "categories": ["finance", "fba", "calculator"],
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "asin": { "type": "string" },
+        "dimensions": { 
+          "type": "object",
+          "properties": {
+            "length": { "type": "number" },
+            "width": { "type": "number" },
+            "height": { "type": "number" },
+            "weight": { "type": "number" }
+          }
+        },
+        "category": { "type": "string" },
+        "price": { "type": "number" }
+      }
+    },
+    "metadata": {
+      "version": "2.0",
+      "marketplace": "US",
+      "last_updated": "2024-01-15"
+    }
+  }
+}
+
+### ============================================
+### MEMORY MANAGEMENT WITH TENANT ISOLATION
+### ============================================
+
+### Store Context at Organization Level
+POST {{baseUrl}}/org/zamaz-enterprise/memory/store
+Content-Type: {{contentType}}
+
+{
+  "session_id": "q4-planning-session",
+  "content": "Q4 2024 Planning: Focus on electronics category with 40% of inventory. Key products: wireless earbuds (ASIN: B08XYZ123), smart home devices. Target: $10M revenue, 25% margin. Main risks: tariff changes, shipping delays from China. Opportunities: Prime Day in October, Black Friday/Cyber Monday.",
+  "metadata": {
+    "type": "strategic_planning",
+    "participants": ["CEO", "Head of FBA", "Supply Chain Manager"],
+    "date": "2024-01-15",
+    "priority": "high"
+  }
+}
+
+### Retrieve Context at Project Level
+POST {{baseUrl}}/org/zamaz-enterprise/project/fba-optimization/memory/retrieve
+Content-Type: {{contentType}}
+
+{
+  "session_id": "q4-planning-session",
+  "query": "What were the key risks and opportunities identified for Q4?",
+  "max_entries": 5,
+  "filter": {
+    "type": "strategic_planning",
+    "priority": "high"
+  }
+}
+
+### ============================================
+### CROSS-TENANT ACCESS PATTERNS
+### ============================================
+
+### Organization Admin Lists All Project Workflows
+GET {{baseUrl}}/org/zamaz-enterprise/workflows
+
+### Project Manager Lists Subproject Workflows
+GET {{baseUrl}}/org/zamaz-enterprise/project/fba-optimization/workflows
+
+### ============================================
+### TENANT-SPECIFIC METRICS & HEALTH
+### ============================================
+
+### Get Organization Health
+GET {{baseUrl}}/org/zamaz-enterprise/health
+
+### Get Project Metrics
+GET {{baseUrl}}/org/zamaz-enterprise/project/fba-optimization/metrics?time_range=24h
+
+### Get Subproject Performance
+GET {{baseUrl}}/org/zamaz-enterprise/project/fba-optimization/subproject/electronics-category/metrics?time_range=7d
+
+### ============================================
+### COMPLEX E-COMMERCE SCENARIO
+### ============================================
+
+### Full FBA Optimization Request
+POST {{baseUrl}}/org/zamaz-enterprise/project/fba-optimization/agents/orchestrate
+Content-Type: {{contentType}}
+
+{
+  "request_id": "fba-q4-optimization-2024",
+  "description": "Complete FBA optimization for Q4 2024: 1) Analyze current inventory health across all categories, 2) Identify slow-moving SKUs and recommend liquidation strategies, 3) Forecast demand for top 100 SKUs considering Prime Day and Black Friday, 4) Calculate optimal reorder quantities considering lead times and storage fees, 5) Generate pricing recommendations to maintain Buy Box while maximizing margin, 6) Create removal orders for aged inventory",
+  "context": {
+    "current_state": {
+      "total_skus": "2,847",
+      "inventory_value": "$2,547,893",
+      "monthly_storage_fees": "$45,231",
+      "ipi_score": "487",
+      "excess_inventory": "$423,000",
+      "stranded_inventory": "$87,000"
+    },
+    "business_goals": {
+      "target_revenue_q4": "$12,000,000",
+      "target_margin": "28%",
+      "max_storage_fees": "$40,000/month",
+      "target_ipi_score": "550+"
+    },
+    "constraints": {
+      "warehouse_capacity": "50,000 cubic feet",
+      "cash_flow_available": "$3,000,000",
+      "lead_time_china": "45-60 days",
+      "lead_time_domestic": "7-14 days"
+    },
+    "historical_data": {
+      "q4_2023_revenue": "$9,234,000",
+      "q4_2023_units_sold": "145,000",
+      "prime_day_lift": "3.5x",
+      "black_friday_lift": "4.2x"
+    }
+  },
+  "preferred_agents": [
+    "DATA_PROCESSOR",
+    "PLANNING_AGENT",
+    "SEARCH_AGENT",
+    "QUALITY_CHECKER",
+    "DOCUMENT_WRITER"
+  ],
+  "constraints": {
+    "max_execution_time": "300000",
+    "require_confidence": "0.85",
+    "output_format": "detailed_report_with_action_items"
+  }
+}
+
+### ============================================
+### TENANT MIGRATION & MANAGEMENT
+### ============================================
+
+### Create New Organization
+POST {{baseUrl}}/admin/organizations
+Content-Type: {{contentType}}
+Authorization: Bearer {{admin_token}}
+
+{
+  "organization_id": "zamaz-subsidiary-eu",
+  "name": "Zamaz Europe GmbH",
+  "tier": "enterprise",
+  "config": {
+    "preferred_region": "europe-west1",
+    "custom_model_enabled": true,
+    "quota_multiplier": 2.0,
+    "features": ["advanced_analytics", "custom_workflows", "priority_support"]
+  }
+}
+
+### Create Project Under Organization
+POST {{baseUrl}}/org/zamaz-enterprise/projects
+Content-Type: {{contentType}}
+
+{
+  "project_id": "supply-chain-optimization",
+  "name": "Supply Chain Optimization Initiative",
+  "description": "Optimize end-to-end supply chain from suppliers to FBA warehouses",
+  "owner": "operations-team@zamaz.com"
+}
+
+### Create Subproject Under Project
+POST {{baseUrl}}/org/zamaz-enterprise/project/supply-chain-optimization/subprojects
+Content-Type: {{contentType}}
+
+{
+  "subproject_id": "china-suppliers",
+  "name": "China Supplier Network",
+  "description": "Manage relationships and logistics with Chinese suppliers",
+  "metadata": {
+    "region": "asia-pacific",
+    "supplier_count": "47",
+    "monthly_volume": "$1.2M"
+  }
+}
