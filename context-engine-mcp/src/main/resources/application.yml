@@ -166,6 +166,9 @@ tenant:
   audit:
     enabled: true
     retentionDays: 90
+  organizations:
+    zamaz-enterprise: ${ZAMAZ_ENTERPRISE_PROJECT:zamaz-enterprise-prod}
+    zamaz-dev: ${ZAMAZ_DEV_PROJECT:zamaz-dev-project}
 
 # Security Configuration
 security:
