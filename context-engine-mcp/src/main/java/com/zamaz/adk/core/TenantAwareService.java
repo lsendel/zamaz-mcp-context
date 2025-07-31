@@ -5,9 +5,11 @@ import com.google.cloud.storage.Storage;
 import com.google.common.base.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.Map;
 
 /**
  * Base class for all tenant-aware services in Zamaz ADK
@@ -19,6 +21,9 @@ public abstract class TenantAwareService {
     protected final String baseProjectId;
     protected final String location;
     protected final Firestore firestore;
+    
+    @Value("#{${tenant.organizations}}")
+    private Map<String, String> organizationProjectMappings;
     
     // Cache tenant-specific resources
     private final ConcurrentMap<String, Object> tenantResourceCache = new ConcurrentHashMap<>();
@@ -80,11 +85,23 @@ public abstract class TenantAwareService {
      */
     protected com.google.cloud.firestore.CollectionReference getTenantCollection(
             TenantContext tenant, String collection) {
-        String path = tenant.getFirestorePath(collection);
+        
+        // Validate collection name for security
+        if (collection == null || collection.trim().isEmpty()) {
+            throw new IllegalArgumentException("Collection name cannot be null or empty");
+        }
+        
+        // Sanitize collection name to prevent injection attacks
+        String sanitizedCollection = sanitizeFirestorePath(collection);
+        
+        String path = tenant.getFirestorePath(sanitizedCollection);
         logger.debug("Accessing Firestore collection: {}", path);
         
+        // Validate and sanitize the full path
+        String sanitizedPath = sanitizeFirestorePath(path);
+        
         // Navigate through the path hierarchy
-        String[] pathParts = path.split("/");
+        String[] pathParts = sanitizedPath.split("/");
         com.google.cloud.firestore.DocumentReference docRef = null;
         
         for (int i = 0; i < pathParts.length - 1; i += 2) {
@@ -99,6 +116,33 @@ public abstract class TenantAwareService {
         return docRef != null ? 
             docRef.collection(pathParts[pathParts.length - 1]) : 
             firestore.collection(pathParts[pathParts.length - 1]);
+    }
+    
+    /**
+     * Sanitize Firestore paths to prevent injection attacks
+     */
+    private String sanitizeFirestorePath(String path) {
+        if (path == null) {
+            throw new IllegalArgumentException("Path cannot be null");
+        }
+        
+        // Remove dangerous characters and sequences
+        String sanitized = path
+            .replaceAll("[^a-zA-Z0-9/_-]", "") // Allow only alphanumeric, underscore, slash, hyphen
+            .replaceAll("/{2,}", "/") // Remove multiple consecutive slashes
+            .replaceAll("^/|/$", ""); // Remove leading/trailing slashes
+        
+        // Validate path length
+        if (sanitized.length() > 1500) { // Firestore path limit
+            throw new IllegalArgumentException("Path too long: " + sanitized.length());
+        }
+        
+        // Validate path structure (must not be empty after sanitization)
+        if (sanitized.isEmpty()) {
+            throw new IllegalArgumentException("Invalid path after sanitization");
+        }
+        
+        return sanitized;
     }
     
     /**
@@ -132,19 +176,14 @@ public abstract class TenantAwareService {
     }
     
     /**
-     * Get organization to GCP project mapping
-     * In production, this would be loaded from configuration
+     * Get organization to GCP project mapping from configuration
      */
     private String getOrganizationProjectMapping(String organizationId) {
-        // Example mappings - in production, load from config
-        switch (organizationId) {
-            case "zamaz-enterprise":
-                return "zamaz-enterprise-prod";
-            case "zamaz-dev":
-                return "zamaz-dev-project";
-            default:
-                return null;
+        if (organizationProjectMappings == null) {
+            logger.warn("Organization project mappings not configured");
+            return null;
         }
+        return organizationProjectMappings.get(organizationId);
     }
     
     /**

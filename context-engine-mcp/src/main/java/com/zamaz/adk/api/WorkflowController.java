@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import java.time.Duration;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1")
 public class WorkflowController {
+    private static final Logger logger = LoggerFactory.getLogger(WorkflowController.class);
     
     @Value("${google.cloud.project}")
     private String projectId;
@@ -470,12 +473,18 @@ public class WorkflowController {
                 .addInstances(instance)
                 .build();
             
+            // Use try-with-resources to ensure proper resource cleanup
             try (PredictionServiceClient client = PredictionServiceClient.create()) {
                 PredictResponse response = client.predict(predictRequest);
+                // Validate response before accessing
+                if (response.getPredictionsCount() == 0) {
+                    throw new RuntimeException("No predictions returned from Gemini");
+                }
                 return response.getPredictions(0).getStringValue();
             }
         } catch (Exception e) {
-            throw new RuntimeException("Failed to call Gemini", e);
+            logger.error("Failed to call Gemini with model: {}, prompt length: {}", model, prompt.length(), e);
+            throw new RuntimeException("Failed to call Gemini: " + e.getMessage(), e);
         }
     }
     
