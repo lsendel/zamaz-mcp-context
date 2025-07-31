@@ -227,24 +227,39 @@ public class SimpleLLMService {
     private String getAgentSystemPrompt(String agent) {
         switch (agent) {
             case "code":
-                return "You are a Code Analyzer agent specializing in code quality, performance analysis, and best practices. " +
+                return "You are a Code Analyzer agent for the Zamaz MCP (Model Context Protocol) system. " +
+                       "You specialize in code quality, performance analysis, and best practices. " +
+                       "You have access to MCP tools including: context storage, resource access, and tool execution. " +
                        "Analyze code thoroughly, identify issues, suggest improvements, and explain complex code structures clearly.";
                        
             case "data":
-                return "You are a Data Processing agent expert in data transformation, analysis, and processing. " +
+                return "You are a Data Processing agent for the Zamaz MCP (Model Context Protocol) system. " +
+                       "You are an expert in data transformation, analysis, and processing. " +
+                       "You have access to MCP services for inventory data, sales analytics, and supply chain information. " +
                        "Help users with data formatting, ETL operations, data validation, and analytical insights.";
                        
             case "planner":
-                return "You are a Planning agent that creates detailed execution plans and strategies. " +
+                return "You are a Planning agent for the Zamaz MCP (Model Context Protocol) system. " +
+                       "You create detailed execution plans and strategies for e-commerce operations. " +
+                       "You can use MCP tools for inventory forecasting, pricing optimization, and supply chain planning. " +
                        "Break down complex tasks into manageable steps, identify dependencies, and provide clear roadmaps.";
                        
             case "quality":
-                return "You are a Quality Checker agent focused on validation, testing, and quality assurance. " +
+                return "You are a Quality Checker agent for the Zamaz MCP (Model Context Protocol) system. " +
+                       "You focus on validation, testing, and quality assurance for e-commerce operations. " +
+                       "You have access to MCP resources for checking inventory accuracy, order validation, and compliance. " +
                        "Verify outputs, check for errors, ensure standards compliance, and provide quality metrics.";
                        
             default:
-                return "You are a helpful AI assistant that can help with various tasks. " +
-                       "Provide accurate, helpful, and detailed responses to user queries.";
+                return "You are the General Assistant for the Zamaz MCP (Model Context Protocol) system. " +
+                       "Zamaz is an e-commerce technology company specializing in Amazon FBA operations. " +
+                       "You have access to MCP services including:\n" +
+                       "- Context storage and retrieval\n" +
+                       "- Inventory management tools\n" +
+                       "- Sales analytics\n" +
+                       "- Supply chain optimization\n" +
+                       "- Brand portfolio management (Ecomoist, Bella Dispensa, etc.)\n" +
+                       "Provide accurate, helpful responses about Zamaz's e-commerce operations and MCP capabilities.";
         }
     }
     
@@ -255,15 +270,15 @@ public class SimpleLLMService {
         switch (agent) {
             case "code":
             case "data":
-                // Use Pro model for complex tasks
-                return "gemini-1.5-pro";
+                // Use Flash Lite model for all tasks
+                return "gemini-2.5-flash-lite";
                 
             case "planner":
             case "quality":
             case "general":
             default:
-                // Use Flash model for general tasks (cost-effective)
-                return "gemini-1.5-flash";
+                // Use Flash Lite model for all tasks
+                return "gemini-2.5-flash-lite";
         }
     }
     

@@ -50,8 +50,8 @@ public class MCPController {
      */
     @GetMapping("/context/retrieve")
     public Map<String, Object> retrieveContext(
-            @RequestParam String key,
-            @RequestParam(required = false) String tenant) {
+            @RequestParam("key") String key,
+            @RequestParam(value = "tenant", required = false) String tenant) {
         
         if (tenant == null) tenant = currentTenant;
         Object value = mcpHandler.getContext(tenant, key);
@@ -68,7 +68,7 @@ public class MCPController {
      * Clear context
      */
     @DeleteMapping("/context/clear")
-    public Map<String, Object> clearContext(@RequestParam(required = false) String tenant) {
+    public Map<String, Object> clearContext(@RequestParam(value = "tenant", required = false) String tenant) {
         if (tenant == null) tenant = currentTenant;
         mcpHandler.clearContext(tenant);
         
@@ -98,14 +98,63 @@ public class MCPController {
      * List available tools
      */
     @GetMapping("/tools/list")
-    public Map<String, Object> listTools(@RequestParam(required = false) String category) {
+    public Map<String, Object> listTools(@RequestParam(value = "category", required = false) String category) {
         List<MCPHandler.Tool> tools = mcpHandler.getAvailableTools(category);
+        
+        // Convert tools to detailed format
+        List<Map<String, Object>> toolDetails = new ArrayList<>();
+        for (MCPHandler.Tool tool : tools) {
+            Map<String, Object> details = new HashMap<>();
+            details.put("name", tool.getName());
+            details.put("description", tool.getDescription());
+            details.put("category", tool.getCategory());
+            
+            // Add examples for each tool
+            details.put("examples", getToolExamples(tool.getName()));
+            toolDetails.add(details);
+        }
         
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
-        response.put("tools", tools);
+        response.put("tools", toolDetails);
         response.put("count", tools.size());
+        response.put("categories", getToolCategories());
         return response;
+    }
+    
+    private List<String> getToolExamples(String toolName) {
+        switch (toolName) {
+            case "context_store":
+                return Arrays.asList(
+                    "Store user preference: theme=dark",
+                    "Remember project name: Zamaz MCP",
+                    "Save conversation context"
+                );
+            case "calculator":
+                return Arrays.asList(
+                    "Calculate 15% of 1200",
+                    "What is the compound interest on $10000 at 5% for 3 years",
+                    "Convert 100 kg to pounds"
+                );
+            case "file_operations":
+                return Arrays.asList(
+                    "Read file report.txt",
+                    "Save analysis to output.json",
+                    "List all CSV files"
+                );
+            case "data_transformer":
+                return Arrays.asList(
+                    "Convert this CSV to JSON",
+                    "Transform XML data to YAML",
+                    "Filter data where status=active"
+                );
+            default:
+                return Collections.emptyList();
+        }
+    }
+    
+    private List<String> getToolCategories() {
+        return Arrays.asList("context", "calculation", "file", "data");
     }
     
     /**
