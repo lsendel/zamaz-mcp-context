@@ -1,6 +1,4 @@
-spring:
-  profiles:
-    active: test
+# Test configuration only - no active profile needed
 
 # Test configuration
 gcp:
