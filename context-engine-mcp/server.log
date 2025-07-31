@@ -1,11 +1,24 @@
-Traceback (most recent call last):
-  File "/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/mock-api-server.py", line 145, in <module>
-    server = HTTPServer(('localhost', port), MockAPIHandler)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Volumes/IDEA/opt/anaconda3/lib/python3.12/socketserver.py", line 457, in __init__
-    self.server_bind()
-  File "/Volumes/IDEA/opt/anaconda3/lib/python3.12/http/server.py", line 136, in server_bind
-    socketserver.TCPServer.server_bind(self)
-  File "/Volumes/IDEA/opt/anaconda3/lib/python3.12/socketserver.py", line 473, in server_bind
-    self.socket.bind(self.server_address)
-OSError: [Errno 48] Address already in use
+🚀 Starting Zamaz Context Engine MCP Server...
+============================================
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+2025-07-31 02:19:32 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 90184 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 02:19:32 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 02:19:32 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 02:19:32 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 02:19:32 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+Standard Commons Logging discovery in action with spring-jcl: please remove commons-logging.jar from classpath in order to avoid potential conflicts
+2025-07-31 02:19:32 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.836 seconds (process running for 1.101)
+✅ Context Engine MCP Server started successfully!
+📡 Server available at: http://localhost:8080
+🔍 Health check: http://localhost:8080/api/health
+📊 Metrics: http://localhost:8080/api/metrics
+2025-07-31 02:19:41 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'

@@ -10,32 +10,31 @@ import java.util.Map;
  * Configuration properties for ADK components
  * Externalizes all hardcoded values from the codebase
  */
-@Component
-@ConfigurationProperties(prefix = "")
+@ConfigurationProperties(prefix = "adk")
 public class ADKConfigurationProperties {
 
-    private final Google google = new Google();
-    private final Ai ai = new Ai();
-    private final Context context = new Context();
-    private final Agents agents = new Agents();
-    private final Workflow workflow = new Workflow();
-    private final Tools tools = new Tools();
-    private final Vector vector = new Vector();
-    private final Resources resources = new Resources();
-    private final Monitoring monitoring = new Monitoring();
-    private final Tenant tenant = new Tenant();
-    private final Security security = new Security();
-    private final Debug debug = new Debug();
+    private Google google = new Google();
+    private Ai ai = new Ai();
+    private Context context = new Context();
+    private Agents agents = new Agents();
+    private Workflow workflow = new Workflow();
+    private Tools tools = new Tools();
+    private Vector vector = new Vector();
+    private Resources resources = new Resources();
+    private Monitoring monitoring = new Monitoring();
+    private Tenant tenant = new Tenant();
+    private Security security = new Security();
+    private Debug debug = new Debug();
 
     // Google Cloud Configuration
     public static class Google {
-        private final Cloud cloud = new Cloud();
+        private Cloud cloud = new Cloud();
         
         public static class Cloud {
             private String project = "zamaz-dev";
             private String location = "us-central1";
-            private final Pubsub pubsub = new Pubsub();
-            private final Storage storage = new Storage();
+            private Pubsub pubsub = new Pubsub();
+            private Storage storage = new Storage();
             
             public static class Pubsub {
                 private String topic = "agent-events";
@@ -63,18 +62,18 @@ public class ADKConfigurationProperties {
 
     // AI Model Configuration
     public static class Ai {
-        private final Models models = new Models();
+        private Models models = new Models();
         
         public static class Models {
-            private final Gemini gemini = new Gemini();
+            private Gemini gemini = new Gemini();
             
             public static class Gemini {
-                private final ModelConfig pro = new ModelConfig("gemini-1.5-pro", 0.7, 2048, 40, 0.95);
-                private final ModelConfig flash = new ModelConfig("gemini-1.5-flash", 0.5, 1024, 40, 0.95);
-                private final ModelConfig decision = new ModelConfig("gemini-1.5-flash", 0.3, 50, 40, 0.95);
-                private final ModelConfig classification = new ModelConfig("gemini-1.5-flash", 0.3, 100, 40, 0.95);
-                private final ModelConfig keywordExtraction = new ModelConfig("gemini-1.5-flash", 0.5, 200, 40, 0.95);
-                private final ModelConfig creative = new ModelConfig("gemini-1.5-pro", 0.8, 400, 40, 0.95);
+                private ModelConfig pro = new ModelConfig("gemini-1.5-pro", 0.7, 2048, 40, 0.95);
+                private ModelConfig flash = new ModelConfig("gemini-1.5-flash", 0.5, 1024, 40, 0.95);
+                private ModelConfig decision = new ModelConfig("gemini-1.5-flash", 0.3, 50, 40, 0.95);
+                private ModelConfig classification = new ModelConfig("gemini-1.5-flash", 0.3, 100, 40, 0.95);
+                private ModelConfig keywordExtraction = new ModelConfig("gemini-1.5-flash", 0.5, 200, 40, 0.95);
+                private ModelConfig creative = new ModelConfig("gemini-1.5-pro", 0.8, 400, 40, 0.95);
                 
                 // Getters
                 public ModelConfig getPro() { return pro; }
@@ -123,10 +122,10 @@ public class ADKConfigurationProperties {
 
     // Context Configuration  
     public static class Context {
-        private final Engine engine = new Engine();
-        private final Quality quality = new Quality();
-        private final Window window = new Window();
-        private final Memory memory = new Memory();
+        private Engine engine = new Engine();
+        private Quality quality = new Quality();
+        private Window window = new Window();
+        private Memory memory = new Memory();
         
         public static class Engine {
             private int maxConcurrentWorkflows = 100;
@@ -199,9 +198,9 @@ public class ADKConfigurationProperties {
     // For brevity, I'll add a few key ones
 
     public static class Resources {
-        private final Shutdown shutdown = new Shutdown();
-        private final Executor executor = new Executor();
-        private final Publisher publisher = new Publisher();
+        private Shutdown shutdown = new Shutdown();
+        private Executor executor = new Executor();
+        private Publisher publisher = new Publisher();
         
         public static class Shutdown {
             private int gracefulTimeoutSeconds = 60;

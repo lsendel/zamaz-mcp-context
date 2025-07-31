@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADK Agent Console - Zamaz Context Engine</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background-color: #2d2d2d;
+            padding: 15px 30px;
+            border-bottom: 1px solid #444;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header h1 {
+            font-size: 20px;
+            font-weight: 500;
+            color: #fff;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #4caf50;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .main-container {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #252525;
+            border-right: 1px solid #444;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .sidebar h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        
+        .agent-list {
+            list-style: none;
+        }
+        
+        .agent-item {
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .agent-item:hover {
+            background-color: #333;
+        }
+        
+        .agent-item.active {
+            background-color: #0066cc;
+        }
+        
+        .agent-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #1a1a1a;
+        }
+        
+        .chat-header {
+            padding: 20px;
+            background-color: #2d2d2d;
+            border-bottom: 1px solid #444;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .message {
+            display: flex;
+            gap: 15px;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .user-avatar {
+            background-color: #0066cc;
+        }
+        
+        .agent-avatar {
+            background-color: #4caf50;
+        }
+        
+        .message-content {
+            flex: 1;
+            background-color: #2d2d2d;
+            padding: 15px;
+            border-radius: 8px;
+            line-height: 1.5;
+        }
+        
+        .message-content pre {
+            background-color: #1a1a1a;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .message-content code {
+            background-color: #1a1a1a;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        
+        .input-container {
+            padding: 20px;
+            background-color: #2d2d2d;
+            border-top: 1px solid #444;
+        }
+        
+        .input-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+        
+        #messageInput {
+            flex: 1;
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            color: #e0e0e0;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 44px;
+            max-height: 200px;
+            font-family: inherit;
+        }
+        
+        #messageInput:focus {
+            outline: none;
+            border-color: #0066cc;
+        }
+        
+        #sendButton {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        
+        #sendButton:hover {
+            background-color: #0052a3;
+        }
+        
+        #sendButton:disabled {
+            background-color: #444;
+            cursor: not-allowed;
+        }
+        
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            color: #888;
+            font-size: 14px;
+            padding: 10px 0;
+        }
+        
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #888;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typing {
+            0%, 60%, 100% { opacity: 0.3; }
+            30% { opacity: 1; }
+        }
+        
+        .welcome-message {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+        }
+        
+        .welcome-message h2 {
+            color: #e0e0e0;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 ADK Agent Console - Zamaz Context Engine</h1>
+        <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span>Connected</span>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <div class="sidebar">
+            <h2>Available Agents</h2>
+            <ul class="agent-list">
+                <li class="agent-item active" data-agent="general">
+                    <div class="agent-icon" style="background-color: #0066cc;">🤖</div>
+                    <span>General Assistant</span>
+                </li>
+                <li class="agent-item" data-agent="code">
+                    <div class="agent-icon" style="background-color: #9c27b0;">💻</div>
+                    <span>Code Analyzer</span>
+                </li>
+                <li class="agent-item" data-agent="data">
+                    <div class="agent-icon" style="background-color: #ff9800;">📊</div>
+                    <span>Data Processor</span>
+                </li>
+                <li class="agent-item" data-agent="planner">
+                    <div class="agent-icon" style="background-color: #2196f3;">📋</div>
+                    <span>Planning Agent</span>
+                </li>
+                <li class="agent-item" data-agent="quality">
+                    <div class="agent-icon" style="background-color: #4caf50;">✓</div>
+                    <span>Quality Checker</span>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2 id="activeAgentName">General Assistant</h2>
+                <p style="color: #888; margin-top: 5px;">AI-powered agent for general assistance</p>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="welcome-message">
+                    <h2>Welcome to ADK Agent Console</h2>
+                    <p>Start a conversation with an AI agent by typing your message below.</p>
+                    <p style="margin-top: 10px;">Select different agents from the sidebar for specialized tasks.</p>
+                </div>
+            </div>
+            
+            <div class="typing-indicator" id="typingIndicator">
+                <span>Agent is typing</span>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+            
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Type your message here... (Press Enter to send, Shift+Enter for new line)"
+                        rows="1"
+                    ></textarea>
+                    <button id="sendButton">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let activeAgent = 'general';
+        let conversationHistory = {};
+        
+        const agentDescriptions = {
+            general: 'AI-powered agent for general assistance',
+            code: 'Specialized in code analysis and review',
+            data: 'Processes and transforms data efficiently',
+            planner: 'Creates execution plans and strategies',
+            quality: 'Validates outputs and checks quality'
+        };
+        
+        // Initialize conversation history for each agent
+        Object.keys(agentDescriptions).forEach(agent => {
+            conversationHistory[agent] = [];
+        });
+        
+        // DOM elements
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const activeAgentName = document.getElementById('activeAgentName');
+        
+        // Agent selection
+        document.querySelectorAll('.agent-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelector('.agent-item.active').classList.remove('active');
+                item.classList.add('active');
+                activeAgent = item.dataset.agent;
+                activeAgentName.textContent = item.querySelector('span').textContent;
+                document.querySelector('.chat-header p').textContent = agentDescriptions[activeAgent];
+                loadConversationHistory();
+            });
+        });
+        
+        // Auto-resize textarea
+        messageInput.addEventListener('input', () => {
+            messageInput.style.height = 'auto';
+            messageInput.style.height = messageInput.scrollHeight + 'px';
+        });
+        
+        // Send message
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            addMessage('user', message);
+            conversationHistory[activeAgent].push({ role: 'user', content: message });
+            
+            // Clear input
+            messageInput.value = '';
+            messageInput.style.height = 'auto';
+            sendButton.disabled = true;
+            
+            // Show typing indicator
+            typingIndicator.style.display = 'flex';
+            
+            // Send to API
+            fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    agent: activeAgent,
+                    message: message,
+                    history: conversationHistory[activeAgent]
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                typingIndicator.style.display = 'none';
+                addMessage('agent', data.response || 'Sorry, I encountered an error.');
+                conversationHistory[activeAgent].push({ role: 'agent', content: data.response });
+                sendButton.disabled = false;
+            })
+            .catch(error => {
+                typingIndicator.style.display = 'none';
+                console.error('Chat API error:', error);
+                addMessage('agent', 'Error: Failed to connect to the AI service. Please ensure the backend is running and Google Cloud credentials are configured.');
+                sendButton.disabled = false;
+            });
+        }
+        
+        // Add message to chat
+        function addMessage(role, content) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            
+            const avatar = document.createElement('div');
+            avatar.className = `message-avatar ${role}-avatar`;
+            avatar.textContent = role === 'user' ? '👤' : '🤖';
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.innerHTML = formatMessage(content);
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(contentDiv);
+            
+            // Remove welcome message if it exists
+            const welcomeMsg = chatMessages.querySelector('.welcome-message');
+            if (welcomeMsg) welcomeMsg.remove();
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Format message content
+        function formatMessage(content) {
+            // Convert code blocks
+            content = content.replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
+            // Convert inline code
+            content = content.replace(/`([^`]+)`/g, '<code>$1</code>');
+            // Convert line breaks
+            content = content.replace(/\n/g, '<br>');
+            return content;
+        }
+        
+        // Load conversation history
+        function loadConversationHistory() {
+            chatMessages.innerHTML = '';
+            const history = conversationHistory[activeAgent];
+            
+            if (history.length === 0) {
+                chatMessages.innerHTML = `
+                    <div class="welcome-message">
+                        <h2>Welcome to ${activeAgentName.textContent}</h2>
+                        <p>${agentDescriptions[activeAgent]}</p>
+                    </div>
+                `;
+            } else {
+                history.forEach(msg => {
+                    addMessage(msg.role, msg.content);
+                });
+            }
+        }
+        
+        // Event listeners
+        sendButton.addEventListener('click', sendMessage);
+        
+        messageInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+        
+        // Enable/disable send button based on input
+        messageInput.addEventListener('input', () => {
+            sendButton.disabled = messageInput.value.trim() === '';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,415 @@
+2025-07-31 00:17:47 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 17733 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 00:17:47 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 00:17:47 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 00:17:47 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 00:17:47 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 00:17:47 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'modelConfigurationService' defined in file [/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes/com/zamaz/adk/config/ModelConfigurationService.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'com.zamaz.adk.config.ADKConfigurationProperties' available: expected single matching bean but found 2: ADKConfigurationProperties,adk-com.zamaz.adk.config.ADKConfigurationProperties
+2025-07-31 00:17:47 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2025-07-31 00:17:47 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in com.zamaz.adk.config.ModelConfigurationService required a single bean, but 2 were found:
+	- ADKConfigurationProperties: defined in file [/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes/com/zamaz/adk/config/ADKConfigurationProperties.class]
+	- adk-com.zamaz.adk.config.ADKConfigurationProperties: defined in unknown location
+
+
+Action:
+
+Consider marking one of the beans as @Primary, updating the consumer to accept multiple beans, or using @Qualifier to identify the bean that should be consumed
+
+2025-07-31 00:18:00 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 17943 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 00:18:00 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 00:18:01 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 00:18:01 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 00:18:01 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 00:18:01 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.642 seconds (process running for 0.768)
+2025-07-31 00:18:09 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 00:20:02 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 19610 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 00:20:02 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 00:20:02 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 00:20:02 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 00:20:02 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 00:20:02 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.704 seconds (process running for 0.864)
+2025-07-31 00:20:33 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 00:24:07 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 22003 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 00:24:07 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 00:24:07 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 00:24:07 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 00:24:07 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 00:24:07 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.658 seconds (process running for 0.847)
+2025-07-31 00:25:41 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 23099 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 00:25:41 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 00:25:41 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 00:25:41 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 00:25:41 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 00:25:41 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.679 seconds (process running for 0.807)
+2025-07-31 00:27:21 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 24380 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 00:27:21 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 00:27:21 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 00:27:21 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 00:27:21 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 00:27:21 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.713 seconds (process running for 0.854)
+2025-07-31 00:29:49 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 26251 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 00:29:49 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 00:29:50 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 00:29:50 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 00:29:50 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 00:29:50 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.942 seconds (process running for 1.073)
+2025-07-31 00:30:15 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 00:35:30 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 29248 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 00:35:30 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 00:35:30 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 00:35:30 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 00:35:30 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 00:35:30 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.654 seconds (process running for 0.782)
+2025-07-31 00:35:44 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 00:35:55 [http-nio-8080-exec-4] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2025-07-31 00:57:29 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 42022 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 00:57:29 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 00:57:29 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 00:57:29 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 00:57:29 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 00:57:30 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.706 seconds (process running for 0.836)
+2025-07-31 00:58:06 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 00:58:06 [http-nio-8080-exec-1] INFO  com.zamaz.adk.service.LLMService - Initialized Vertex AI with project: zamaz-authentication in location: us-central1
+2025-07-31 00:58:06 [http-nio-8080-exec-1] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Handler dispatch failed: java.lang.IncompatibleClassChangeError: class com.google.cloud.vertexai.api.stub.PredictionServiceStubSettings overrides final method com.google.api.gax.rpc.StubSettings.getEndpoint()Ljava/lang/String;] with root cause
+java.lang.IncompatibleClassChangeError: class com.google.cloud.vertexai.api.stub.PredictionServiceStubSettings overrides final method com.google.api.gax.rpc.StubSettings.getEndpoint()Ljava/lang/String;
+	at java.base/java.lang.ClassLoader.defineClass1(Native Method)
+	at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1027)
+	at java.base/java.security.SecureClassLoader.defineClass(SecureClassLoader.java:150)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.defineClass(BuiltinClassLoader.java:862)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.findClassOnClassPathOrNull(BuiltinClassLoader.java:760)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClassOrNull(BuiltinClassLoader.java:681)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at com.google.cloud.vertexai.api.PredictionServiceSettings$Builder.createDefault(PredictionServiceSettings.java:279)
+	at com.google.cloud.vertexai.api.PredictionServiceSettings$Builder.access$000(PredictionServiceSettings.java:260)
+	at com.google.cloud.vertexai.api.PredictionServiceSettings.newBuilder(PredictionServiceSettings.java:237)
+	at com.google.cloud.vertexai.VertexAI.getPredictionServiceSettings(VertexAI.java:266)
+	at com.google.cloud.vertexai.VertexAI.getPredictionServiceClient(VertexAI.java:246)
+	at com.google.cloud.vertexai.generativeai.GenerativeModel.generateContent(GenerativeModel.java:329)
+	at com.google.cloud.vertexai.generativeai.GenerativeModel.generateContent(GenerativeModel.java:316)
+	at com.google.cloud.vertexai.generativeai.GenerativeModel.generateContent(GenerativeModel.java:303)
+	at com.google.cloud.vertexai.generativeai.GenerativeModel.generateContent(GenerativeModel.java:291)
+	at com.zamaz.adk.service.LLMService.generateResponse(LLMService.java:76)
+	at com.zamaz.adk.service.LLMService.testConnection(LLMService.java:193)
+	at com.zamaz.adk.api.ChatController.testLLMConnection(ChatController.java:41)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:254)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:182)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-07-31 00:58:14 [http-nio-8080-exec-2] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Handler dispatch failed: java.lang.IncompatibleClassChangeError: class com.google.cloud.vertexai.api.stub.PredictionServiceStubSettings overrides final method com.google.api.gax.rpc.StubSettings.getEndpoint()Ljava/lang/String;] with root cause
+java.lang.IncompatibleClassChangeError: class com.google.cloud.vertexai.api.stub.PredictionServiceStubSettings overrides final method com.google.api.gax.rpc.StubSettings.getEndpoint()Ljava/lang/String;
+	at com.google.cloud.vertexai.api.PredictionServiceSettings$Builder.createDefault(PredictionServiceSettings.java:279)
+	at com.google.cloud.vertexai.api.PredictionServiceSettings$Builder.access$000(PredictionServiceSettings.java:260)
+	at com.google.cloud.vertexai.api.PredictionServiceSettings.newBuilder(PredictionServiceSettings.java:237)
+	at com.google.cloud.vertexai.VertexAI.getPredictionServiceSettings(VertexAI.java:266)
+	at com.google.cloud.vertexai.VertexAI.getPredictionServiceClient(VertexAI.java:246)
+	at com.google.cloud.vertexai.generativeai.GenerativeModel.generateContent(GenerativeModel.java:329)
+	at com.google.cloud.vertexai.generativeai.GenerativeModel.generateContent(GenerativeModel.java:316)
+	at com.google.cloud.vertexai.generativeai.GenerativeModel.generateContent(GenerativeModel.java:303)
+	at com.google.cloud.vertexai.generativeai.GenerativeModel.generateContent(GenerativeModel.java:291)
+	at com.zamaz.adk.service.LLMService.generateResponse(LLMService.java:76)
+	at com.zamaz.adk.service.LLMService.testConnection(LLMService.java:193)
+	at com.zamaz.adk.api.ChatController.testLLMConnection(ChatController.java:41)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:254)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:182)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-07-31 01:02:54 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 45338 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 01:02:54 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 01:02:55 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 01:02:55 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 01:02:55 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 01:02:55 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.684 seconds (process running for 0.823)
+2025-07-31 01:03:20 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 01:03:24 [http-nio-8080-exec-1] ERROR c.zamaz.adk.service.SimpleLLMService - API request failed with code: 404
+2025-07-31 01:04:57 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 46742 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 01:04:57 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 01:04:57 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 01:04:57 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 01:04:57 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 01:04:57 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-07-31 01:04:57 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-07-31 01:05:57 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 47542 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 01:05:57 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 01:05:57 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 01:05:57 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 01:05:57 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 01:05:58 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.616 seconds (process running for 0.726)
+2025-07-31 01:39:16 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 01:39:30 [http-nio-8080-exec-4] INFO  c.zamaz.adk.service.SimpleLLMService - Calling Vertex AI API: https://us-central1-aiplatform.googleapis.com/v1/projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent
+2025-07-31 01:39:30 [http-nio-8080-exec-4] ERROR c.zamaz.adk.service.SimpleLLMService - API request failed with code: 404 - Response: {  "error": {    "code": 404,    "message": "Publisher Model `projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions",    "status": "NOT_FOUND"  }}
+2025-07-31 01:39:42 [http-nio-8080-exec-7] INFO  com.zamaz.adk.api.ChatController - Received chat request for agent: general with message: what tools you have
+2025-07-31 01:39:44 [http-nio-8080-exec-7] INFO  c.zamaz.adk.service.SimpleLLMService - Calling Vertex AI API: https://us-central1-aiplatform.googleapis.com/v1/projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent
+2025-07-31 01:39:44 [http-nio-8080-exec-7] ERROR c.zamaz.adk.service.SimpleLLMService - API request failed with code: 404 - Response: {  "error": {    "code": 404,    "message": "Publisher Model `projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions",    "status": "NOT_FOUND"  }}
+2025-07-31 01:42:25 [http-nio-8080-exec-9] INFO  com.zamaz.adk.api.ChatController - Received chat request for agent: general with message: What tools are available?
+2025-07-31 01:42:26 [http-nio-8080-exec-9] INFO  c.zamaz.adk.service.SimpleLLMService - Calling Vertex AI API: https://us-central1-aiplatform.googleapis.com/v1/projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent
+2025-07-31 01:42:26 [http-nio-8080-exec-9] ERROR c.zamaz.adk.service.SimpleLLMService - API request failed with code: 404 - Response: {  "error": {    "code": 404,    "message": "Publisher Model `projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions",    "status": "NOT_FOUND"  }}
+2025-07-31 01:47:33 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 68375 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 01:47:33 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 01:47:33 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 01:47:33 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 01:47:33 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 01:47:33 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.841 seconds (process running for 1.058)
+2025-07-31 01:47:54 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 01:47:54 [http-nio-8080-exec-1] INFO  com.zamaz.adk.api.ChatController - Received chat request for agent: general with message: What tools are available for MCP functionality?
+2025-07-31 01:47:54 [http-nio-8080-exec-1] WARN  c.zamaz.adk.service.SimpleLLMService - Google Cloud project not configured. Set GOOGLE_CLOUD_PROJECT environment variable.
+2025-07-31 01:47:57 [http-nio-8080-exec-3] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2025-07-31 01:48:12 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 68954 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 01:48:12 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 01:48:12 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 01:48:12 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 01:48:12 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 01:48:12 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.813 seconds (process running for 1.02)
+2025-07-31 01:48:13 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 01:48:21 [http-nio-8080-exec-3] INFO  com.zamaz.adk.api.ChatController - Received chat request for agent: general with message: what tools you have
+2025-07-31 01:48:25 [http-nio-8080-exec-3] INFO  c.zamaz.adk.service.SimpleLLMService - Calling Vertex AI API: https://us-central1-aiplatform.googleapis.com/v1/projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash-001:generateContent
+2025-07-31 01:48:25 [http-nio-8080-exec-3] ERROR c.zamaz.adk.service.SimpleLLMService - API request failed with code: 404 - Response: {  "error": {    "code": 404,    "message": "Publisher Model `projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash-001` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions",    "status": "NOT_FOUND"  }}
+2025-07-31 01:49:55 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 70162 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 01:49:55 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 01:49:55 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 01:49:55 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 01:49:55 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 01:49:55 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.785 seconds (process running for 0.966)
+2025-07-31 01:50:11 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 01:50:11 [http-nio-8080-exec-1] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unrecognized character escape '!' (code 33)]
+2025-07-31 01:50:27 [http-nio-8080-exec-2] INFO  com.zamaz.adk.api.ChatController - Received chat request for agent: general with message: What tools are available?
+2025-07-31 01:50:29 [http-nio-8080-exec-2] INFO  c.zamaz.adk.service.SimpleLLMService - Calling Vertex AI API: https://us-central1-aiplatform.googleapis.com/v1/projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent
+2025-07-31 01:50:29 [http-nio-8080-exec-2] ERROR c.zamaz.adk.service.SimpleLLMService - API request failed with code: 404 - Response: {  "error": {    "code": 404,    "message": "Publisher Model `projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions",    "status": "NOT_FOUND"  }}
+2025-07-31 01:51:46 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 71456 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 01:51:46 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 01:51:46 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 01:51:46 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 01:51:47 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 01:51:47 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-07-31 01:51:47 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-07-31 01:52:32 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 72002 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 01:52:32 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 01:52:33 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 01:52:33 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 01:52:33 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 01:52:33 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.835 seconds (process running for 1.076)
+2025-07-31 01:52:54 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 01:52:54 [http-nio-8080-exec-1] INFO  com.zamaz.adk.api.ChatController - Received chat request for agent: general with message: What tools are available?
+2025-07-31 01:52:55 [http-nio-8080-exec-1] INFO  c.zamaz.adk.service.SimpleLLMService - Calling Vertex AI API: https://us-central1-aiplatform.googleapis.com/v1/projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash-002:generateContent
+2025-07-31 01:52:55 [http-nio-8080-exec-1] ERROR c.zamaz.adk.service.SimpleLLMService - API request failed with code: 404 - Response: {  "error": {    "code": 404,    "message": "Publisher Model `projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash-002` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions",    "status": "NOT_FOUND"  }}
+2025-07-31 01:54:27 [http-nio-8080-exec-4] INFO  com.zamaz.adk.api.ChatController - Received chat request for agent: general with message: what tools you have
+2025-07-31 01:54:28 [http-nio-8080-exec-4] INFO  c.zamaz.adk.service.SimpleLLMService - Calling Vertex AI API: https://us-central1-aiplatform.googleapis.com/v1/projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash-002:generateContent
+2025-07-31 01:54:28 [http-nio-8080-exec-4] ERROR c.zamaz.adk.service.SimpleLLMService - API request failed with code: 404 - Response: {  "error": {    "code": 404,    "message": "Publisher Model `projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash-002` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions",    "status": "NOT_FOUND"  }}
+2025-07-31 02:02:17 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 78568 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 02:02:17 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 02:02:17 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 02:02:17 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 02:02:17 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 02:02:18 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.805 seconds (process running for 1.084)
+2025-07-31 02:02:38 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 02:02:38 [http-nio-8080-exec-1] INFO  com.zamaz.adk.api.ChatController - Received chat request for agent: general with message: What tools are available?
+2025-07-31 02:02:39 [http-nio-8080-exec-1] INFO  c.zamaz.adk.service.SimpleLLMService - Calling Vertex AI API: https://us-central1-aiplatform.googleapis.com/v1/projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash-latest:generateContent
+2025-07-31 02:02:39 [http-nio-8080-exec-1] ERROR c.zamaz.adk.service.SimpleLLMService - API request failed with code: 404 - Response: {  "error": {    "code": 404,    "message": "Publisher Model `projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash-latest` not found.",    "status": "NOT_FOUND"  }}
+2025-07-31 02:03:17 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 79304 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 02:03:17 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 02:03:17 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 02:03:17 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 02:03:17 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 02:03:17 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-07-31 02:03:17 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-07-31 02:03:55 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 79776 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 02:03:55 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 02:03:56 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 02:03:56 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 02:03:56 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 02:03:56 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.811 seconds (process running for 1.063)
+2025-07-31 02:04:17 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 02:04:17 [http-nio-8080-exec-1] INFO  com.zamaz.adk.api.ChatController - Received chat request for agent: general with message: What tools are available?
+2025-07-31 02:04:18 [http-nio-8080-exec-1] INFO  c.zamaz.adk.service.SimpleLLMService - Calling Vertex AI API: https://us-central1-aiplatform.googleapis.com/v1/projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash-latest:generateContent
+2025-07-31 02:04:19 [http-nio-8080-exec-1] ERROR c.zamaz.adk.service.SimpleLLMService - API request failed with code: 404 - Response: {  "error": {    "code": 404,    "message": "Publisher Model `projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash-latest` not found.",    "status": "NOT_FOUND"  }}
+2025-07-31 02:04:19 [http-nio-8080-exec-1] INFO  com.zamaz.adk.api.ChatController - Real LLM not available, using demo service
+2025-07-31 02:04:19 [http-nio-8080-exec-1] INFO  c.zamaz.adk.service.DemoLLMService - Demo mode: Processing prompt for model demo-model
+2025-07-31 02:05:40 [http-nio-8080-exec-5] INFO  com.zamaz.adk.api.ChatController - Received chat request for agent: general with message: what tools you have
+2025-07-31 02:05:41 [http-nio-8080-exec-5] INFO  c.zamaz.adk.service.SimpleLLMService - Calling Vertex AI API: https://us-central1-aiplatform.googleapis.com/v1/projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash-latest:generateContent
+2025-07-31 02:05:41 [http-nio-8080-exec-5] ERROR c.zamaz.adk.service.SimpleLLMService - API request failed with code: 404 - Response: {  "error": {    "code": 404,    "message": "Publisher Model `projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash-latest` not found.",    "status": "NOT_FOUND"  }}
+2025-07-31 02:05:41 [http-nio-8080-exec-5] INFO  com.zamaz.adk.api.ChatController - Real LLM not available, using demo service
+2025-07-31 02:05:41 [http-nio-8080-exec-5] INFO  c.zamaz.adk.service.DemoLLMService - Demo mode: Processing prompt for model demo-model
+2025-07-31 02:09:17 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 82775 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 02:09:17 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 02:09:17 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 02:09:17 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 02:09:17 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 02:09:17 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.841 seconds (process running for 1.137)
+2025-07-31 02:09:37 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 02:09:37 [http-nio-8080-exec-1] INFO  com.zamaz.adk.api.ChatController - Received chat request for agent: general with message: What tools are available?
+2025-07-31 02:09:37 [http-nio-8080-exec-1] INFO  c.zamaz.adk.service.GeminiAPIService - Gemini API key not set. To enable real AI responses:
+2025-07-31 02:09:37 [http-nio-8080-exec-1] INFO  c.zamaz.adk.service.GeminiAPIService - 1. Go to https://makersuite.google.com/app/apikey
+2025-07-31 02:09:37 [http-nio-8080-exec-1] INFO  c.zamaz.adk.service.GeminiAPIService - 2. Create an API key
+2025-07-31 02:09:37 [http-nio-8080-exec-1] INFO  c.zamaz.adk.service.GeminiAPIService - 3. Set environment variable: export GEMINI_API_KEY=your-key-here
+2025-07-31 02:09:37 [http-nio-8080-exec-1] INFO  c.zamaz.adk.service.GeminiAPIService - 4. Restart the application
+2025-07-31 02:09:40 [http-nio-8080-exec-1] INFO  c.zamaz.adk.service.SimpleLLMService - Calling Vertex AI API: https://us-central1-aiplatform.googleapis.com/v1/projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash:generateContent
+2025-07-31 02:09:40 [http-nio-8080-exec-1] ERROR c.zamaz.adk.service.SimpleLLMService - API request failed with code: 404 - Response: {  "error": {    "code": 404,    "message": "Publisher Model `projects/zamaz-authentication/locations/us-central1/publishers/google/models/gemini-1.5-flash` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions",    "status": "NOT_FOUND"  }}
+2025-07-31 02:09:40 [http-nio-8080-exec-1] INFO  com.zamaz.adk.api.ChatController - Using demo service as fallback
+2025-07-31 02:09:40 [http-nio-8080-exec-1] INFO  c.zamaz.adk.service.DemoLLMService - Demo mode: Processing prompt for model demo-model
+2025-07-31 02:14:29 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 86533 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 02:14:29 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 02:14:30 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 02:14:30 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 02:14:30 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 02:14:30 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 1.175 seconds (process running for 1.818)
+2025-07-31 02:14:37 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 02:14:37 [http-nio-8080-exec-1] WARN  c.zamaz.adk.service.SimpleLLMService - Google Cloud project not configured. Set GOOGLE_CLOUD_PROJECT environment variable.
+2025-07-31 02:14:51 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 86929 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 02:14:51 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 02:14:51 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 02:14:51 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 02:14:51 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 02:14:52 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.814 seconds (process running for 0.991)
+2025-07-31 02:14:58 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 02:14:58 [http-nio-8080-exec-1] INFO  c.zamaz.adk.service.GeminiAPIService - Calling Gemini API with model: gemini-1.5-flash
+2025-07-31 02:15:07 [http-nio-8080-exec-2] INFO  com.zamaz.adk.api.ChatController - Received chat request for agent: general with message: What tools are available?
+2025-07-31 02:15:07 [http-nio-8080-exec-2] INFO  c.zamaz.adk.service.GeminiAPIService - Calling Gemini API with model: gemini-1.5-flash
+2025-07-31 02:16:03 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 87889 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 02:16:03 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 02:16:03 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 02:16:03 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 02:16:03 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 02:16:03 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.779 seconds (process running for 0.943)
+2025-07-31 02:17:40 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-07-31 02:19:32 [main] INFO  c.z.adk.ContextEngineMCPApplication - Starting ContextEngineMCPApplication using Java 21.0.2 with PID 90184 (/Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp/target/classes started by lsendel in /Users/lsendel/IdeaProjects/zamaz-mcp-context/context-engine-mcp)
+2025-07-31 02:19:32 [main] INFO  c.z.adk.ContextEngineMCPApplication - No active profile set, falling back to 1 default profile: "default"
+2025-07-31 02:19:32 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-07-31 02:19:32 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-07-31 02:19:32 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-07-31 02:19:32 [main] INFO  c.z.adk.ContextEngineMCPApplication - Started ContextEngineMCPApplication in 0.836 seconds (process running for 1.101)
+2025-07-31 02:19:41 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'

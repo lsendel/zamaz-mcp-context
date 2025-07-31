@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active: test
+
+# Test configuration
+gcp:
+  project-id: ${TEST_GCP_PROJECT:zamaz-authentication}
+  location: ${TEST_GCP_LOCATION:us-central1}
+  model:
+    name: ${TEST_GCP_MODEL:gemini-1.5-flash}
+  credentials:
+    path: ${TEST_GOOGLE_APPLICATION_CREDENTIALS:}
+  timeout:
+    seconds: 30
+
+# Logging
+logging:
+  level:
+    com.zamaz: DEBUG
+    org.springframework.web: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+# Server configuration for tests
+server:
+  port: 0  # Random port for tests
+
+# Test data
+test:
+  data:
+    enabled: true

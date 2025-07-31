@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zamaz Context Engine MCP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .status {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .endpoints {
+            margin-top: 30px;
+        }
+        .endpoint {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            border-left: 4px solid #007bff;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .config-section {
+            background-color: #e9ecef;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Zamaz Context Engine MCP Server</h1>
+        <div class="status">✅ Server is running and healthy!</div>
+        
+        <p>Welcome to the Zamaz Context Engine MCP Server. This server provides AI-powered context management and multi-agent orchestration capabilities.</p>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="/console.html" style="display: inline-block; background-color: #007bff; color: white; padding: 15px 30px; border-radius: 5px; text-decoration: none; font-size: 18px; font-weight: bold;">
+                🚀 Launch Agent Console
+            </a>
+        </div>
+        
+        <h2>📡 Available API Endpoints:</h2>
+        <div class="endpoints">
+            <div class="endpoint">
+                <strong>GET</strong> <a href="/console.html" target="_blank">/console.html</a> - Interactive Agent Console
+                <br><small>Chat interface for interacting with AI agents</small>
+            </div>
+            <div class="endpoint">
+                <strong>POST</strong> /api/chat - Chat with agents
+                <br><small>Send messages to AI agents and receive responses</small>
+            </div>
+            <div class="endpoint">
+                <strong>GET</strong> <a href="/api/health" target="_blank">/api/health</a> - Health check endpoint
+                <br><small>Returns the current health status of the server</small>
+            </div>
+            <div class="endpoint">
+                <strong>GET</strong> <a href="/api/status" target="_blank">/api/status</a> - Service status and version
+                <br><small>Returns detailed service information including version and uptime</small>
+            </div>
+            <div class="endpoint">
+                <strong>GET</strong> <a href="/ping" target="_blank">/ping</a> - Simple ping endpoint
+                <br><small>Quick connectivity check</small>
+            </div>
+        </div>
+        
+        <div class="config-section">
+            <h2>⚙️ Configuration:</h2>
+            <ul>
+                <li><strong>Service Name:</strong> Zamaz Context Engine MCP</li>
+                <li><strong>Spring Boot Version:</strong> 3.2.0</li>
+                <li><strong>Java Version:</strong> 17+</li>
+                <li><strong>Server Port:</strong> 8080</li>
+                <li><strong>Environment:</strong> Development</li>
+            </ul>
+        </div>
+        
+        <p style="margin-top: 30px; color: #666; text-align: center;">
+            <small>Timestamp: <span id="timestamp"></span></small>
+        </p>
+    </div>
+    
+    <script>
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // Test API connectivity
+        fetch('/api/health')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Health check:', data);
+            })
+            .catch(error => {
+                console.error('Health check failed:', error);
+            });
+    </script>
+</body>
+</html>
